@@ -18,16 +18,18 @@ import javax.persistence.Table;
 @Table(name = "barang_hilang_user")
 public class User {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  private String email, password, key, alamat, noHp;
+  private String email, password, alamat, noHp;
 
-  public Long getId() {
+  private String apiKkey;
+
+  public long getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -47,12 +49,12 @@ public class User {
     this.password = password;
   }
 
-  public String getKey() {
-    return key;
+  public String getApiKkey() {
+    return apiKkey;
   }
 
-  public void setKey(String key) {
-    this.key = key;
+  public void setApiKkey(String key) {
+    this.apiKkey = key;
   }
 
   public String getAlamat() {
