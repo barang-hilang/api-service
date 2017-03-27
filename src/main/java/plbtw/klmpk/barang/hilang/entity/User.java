@@ -10,8 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.springframework.hateoas.ResourceSupport;
 
 /**
  *
@@ -19,11 +19,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "barang_hilang_user")
-public class User {
+public class User extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
-
+  private long idUser;
 
   @ManyToOne(cascade = CascadeType.MERGE)
   private Role role;
@@ -40,12 +39,12 @@ public class User {
 
   private String apiKkey;
 
-  public long getId() {
-    return id;
+  public long getIdUser() {
+    return idUser;
   }
 
   public void setId(long id) {
-    this.id = id;
+    this.idUser = id;
   }
 
   public String getEmail() {

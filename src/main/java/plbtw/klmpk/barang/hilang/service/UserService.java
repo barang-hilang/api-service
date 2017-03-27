@@ -6,6 +6,7 @@ package plbtw.klmpk.barang.hilang.service;
 
 import java.util.Collection;
 import org.springframework.stereotype.Service;
+import plbtw.klmpk.barang.hilang.entity.User;
 
 /**
  *
@@ -13,4 +14,6 @@ import org.springframework.stereotype.Service;
  */
 public interface UserService {
   Collection getAllUsers();
+
+  void addUser(User user);
 }
