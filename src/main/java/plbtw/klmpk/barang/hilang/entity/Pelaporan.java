@@ -4,6 +4,7 @@
  */
 package plbtw.klmpk.barang.hilang.entity;
 
+import java.sql.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,9 +27,27 @@ public class Pelaporan {
   @ManyToOne(cascade = CascadeType.MERGE)
   private Barang barang;
 
-  private String statusKonfirmasi;
   private String email;
   private String keterangan;
+  private String tempatHilang;
+
+  public String getTempatHilang() {
+    return tempatHilang;
+  }
+
+  public void setTempatHilang(String tempatHilang) {
+    this.tempatHilang = tempatHilang;
+  }
+
+  public Date getTanggalHilang() {
+    return tanggalHilang;
+  }
+
+  public void setTanggalHilang(Date tanggalHilang) {
+    this.tanggalHilang = tanggalHilang;
+  }
+
+  private Date tanggalHilang;
 
   public long getId() {
     return id;
@@ -44,14 +63,6 @@ public class Pelaporan {
 
   public void setBarang(Barang barang) {
     this.barang = barang;
-  }
-
-  public String getStatusKonfirmasi() {
-    return statusKonfirmasi;
-  }
-
-  public void setStatusKonfirmasi(String statusKonfirmasi) {
-    this.statusKonfirmasi = statusKonfirmasi;
   }
 
   public String getEmail() {
