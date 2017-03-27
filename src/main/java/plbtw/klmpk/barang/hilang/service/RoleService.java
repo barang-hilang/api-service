@@ -12,7 +12,7 @@ import plbtw.klmpk.barang.hilang.entity.Role;
  *
  * @author ALz
  */
-@Service
+
 public interface RoleService {
   Collection<Role> getAllRole();
 }

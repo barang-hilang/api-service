@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Table(name = "barang_hilang_role")
 public class Role {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   private String role;

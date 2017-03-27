@@ -6,6 +6,7 @@ package plbtw.klmpk.barang.hilang.service.impl;
 
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import plbtw.klmpk.barang.hilang.entity.Barang;
 import plbtw.klmpk.barang.hilang.repository.BarangRepository;
 import plbtw.klmpk.barang.hilang.service.BarangService;
@@ -14,6 +15,7 @@ import plbtw.klmpk.barang.hilang.service.BarangService;
  *
  * @author ALz
  */
+@Service
 public class BarangServiceImpl implements BarangService {
 
   @Autowired

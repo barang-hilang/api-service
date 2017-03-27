@@ -19,8 +19,26 @@ import org.springframework.beans.factory.annotation.Required;
 @Table(name = "barang_hilang_kategori_barang")
 public class KategoriBarang {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   private String jenis;
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public String getJenis() {
+    return jenis;
+  }
+
+  public void setJenis(String jenis) {
+    this.jenis = jenis;
+  }
+
+
 }

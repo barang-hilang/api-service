@@ -12,7 +12,7 @@ import plbtw.klmpk.barang.hilang.entity.KategoriBarang;
  *
  * @author ALz
  */
-@Service
+
 public interface KategoriBarangService {
   Collection<KategoriBarang> getAllKategoriBarang();
 }

@@ -12,7 +12,7 @@ import plbtw.klmpk.barang.hilang.entity.Pelaporan;
  *
  * @author ALz
  */
-@Service
+
 public interface PelaporanService {
   Collection<Pelaporan> getAllPelaporan();
 }

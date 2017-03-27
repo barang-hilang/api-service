@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import plbtw.klmpk.barang.hilang.entity.Role;
 import plbtw.klmpk.barang.hilang.repository.RoleRepository;
 import plbtw.klmpk.barang.hilang.service.RoleService;
@@ -16,6 +17,7 @@ import plbtw.klmpk.barang.hilang.service.RoleService;
  *
  * @author ALz
  */
+@Service
 public class RoleServiceImpl implements RoleService {
 
   @Autowired

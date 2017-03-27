@@ -21,15 +21,45 @@ import javax.persistence.Table;
 @Table(name = "barang_hilang_pelaporan")
 public class Pelaporan {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   @ManyToOne(cascade = CascadeType.MERGE)
   private Barang barang;
 
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private User pelapor;
+
   private String email;
   private String keterangan;
   private String tempatHilang;
+  private Date tanggalHilang;
+  private String tempatDitemukan;
+  private Date tanggalDitemukan;
+
+  public User getPelapor() {
+    return pelapor;
+  }
+
+  public void setPelapor(User pelapor) {
+    this.pelapor = pelapor;
+  }
+
+  public String getTempatDitemukan() {
+    return tempatDitemukan;
+  }
+
+  public void setTempatDitemukan(String tempatDitemukan) {
+    this.tempatDitemukan = tempatDitemukan;
+  }
+
+  public Date getTanggalDitemukan() {
+    return tanggalDitemukan;
+  }
+
+  public void setTanggalDitemukan(Date tanggalDitemukan) {
+    this.tanggalDitemukan = tanggalDitemukan;
+  }
 
   public String getTempatHilang() {
     return tempatHilang;
@@ -47,7 +77,7 @@ public class Pelaporan {
     this.tanggalHilang = tanggalHilang;
   }
 
-  private Date tanggalHilang;
+
 
   public long getId() {
     return id;

@@ -12,7 +12,6 @@ import plbtw.klmpk.barang.hilang.entity.Barang;
  *
  * @author ALz
  */
-@Service
 public interface BarangService {
   Collection<Barang> getAllBarang();
 }

@@ -7,6 +7,7 @@ package plbtw.klmpk.barang.hilang.controller;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import plbtw.klmpk.barang.hilang.entity.KategoriBarang;
 import plbtw.klmpk.barang.hilang.service.KategoriBarangService;
@@ -21,6 +22,7 @@ public class KategoriBarangController {
   @Autowired
   private KategoriBarangService kategoriBarangService;
 
+  @RequestMapping(method = RequestMethod.GET, produces = "application/json")
   public Collection<KategoriBarang> getAllKategoriBarang() {
     return kategoriBarangService.getAllKategoriBarang();
   }
