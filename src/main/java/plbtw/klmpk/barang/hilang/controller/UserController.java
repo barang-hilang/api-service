@@ -12,6 +12,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,6 +43,14 @@ public class UserController {
       user.add(selfLink);
     }
     return allUsers;
+  }
+
+  @RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")
+  public User getUser(@PathVariable("id") long id) {
+    User user = userService.getUser(id);
+    Link selfLink = linkTo(UserController.class).withSelfRel();
+    user.add(selfLink);
+    return user;
   }
 
   @RequestMapping(value = "/test/", method = RequestMethod.GET, produces = "application/json")

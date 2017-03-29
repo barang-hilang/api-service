@@ -37,7 +37,7 @@ public class User extends ResourceSupport {
 
   private String email, password, alamat, noHp;
 
-  private String apiKkey;
+  private String apiKey;
 
   public long getIdUser() {
     return idUser;
@@ -64,11 +64,11 @@ public class User extends ResourceSupport {
   }
 
   public String getApiKkey() {
-    return apiKkey;
+    return apiKey;
   }
 
   public void setApiKkey(String key) {
-    this.apiKkey = key;
+    this.apiKey = key;
   }
 
   public String getAlamat() {
