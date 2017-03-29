@@ -5,7 +5,6 @@
 package plbtw.klmpk.barang.hilang.service;
 
 import java.util.Collection;
-import org.springframework.stereotype.Service;
 import plbtw.klmpk.barang.hilang.entity.Role;
 
 /**
@@ -15,4 +14,8 @@ import plbtw.klmpk.barang.hilang.entity.Role;
 
 public interface RoleService {
   Collection<Role> getAllRole();
+
+  Role getRole(long id);
+
+  void addRole(Role input);
 }

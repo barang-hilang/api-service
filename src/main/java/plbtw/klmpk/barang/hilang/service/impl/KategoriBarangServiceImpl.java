@@ -26,4 +26,14 @@ public class KategoriBarangServiceImpl implements KategoriBarangService {
     return kategoriBarangRepository.findAll();
   }
 
+  @Override
+  public KategoriBarang getKategoriBarang(long id) {
+    return kategoriBarangRepository.findOne(id);
+  }
+
+  @Override
+  public void addKategoriBarang(KategoriBarang kategoriBarang) {
+    kategoriBarangRepository.save(kategoriBarang);
+  }
+
 }

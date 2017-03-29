@@ -14,4 +14,8 @@ import plbtw.klmpk.barang.hilang.entity.Barang;
  */
 public interface BarangService {
   Collection<Barang> getAllBarang();
+
+  Barang getBarang(long id);
+
+  void addBarang(Barang barang);
 }

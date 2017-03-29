@@ -30,4 +30,14 @@ public class RoleServiceImpl implements RoleService {
     return data;
   }
 
+  @Override
+  public Role getRole(long id) {
+    return roleRepository.findOne(id);
+  }
+
+  @Override
+  public void addRole(Role input) {
+    roleRepository.save(input);
+  }
+
 }

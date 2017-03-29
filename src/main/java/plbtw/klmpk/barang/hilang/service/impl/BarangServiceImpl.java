@@ -26,4 +26,14 @@ public class BarangServiceImpl implements BarangService {
     return barangRepository.findAll();
   }
 
+  @Override
+  public Barang getBarang(long id) {
+    return barangRepository.findOne(id);
+  }
+
+  @Override
+  public void addBarang(Barang barang) {
+    barangRepository.save(barang);
+  }
+
 }

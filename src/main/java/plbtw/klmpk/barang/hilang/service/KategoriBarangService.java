@@ -15,4 +15,9 @@ import plbtw.klmpk.barang.hilang.entity.KategoriBarang;
 
 public interface KategoriBarangService {
   Collection<KategoriBarang> getAllKategoriBarang();
+
+  KategoriBarang getKategoriBarang(long id);
+
+  void addKategoriBarang(KategoriBarang kategoriBarang);
+
 }

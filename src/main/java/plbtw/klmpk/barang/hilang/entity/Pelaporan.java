@@ -30,7 +30,6 @@ public class Pelaporan {
   @ManyToOne(cascade = CascadeType.MERGE)
   private User pelapor;
 
-  private String email;
   private String keterangan;
   private String tempatHilang;
   private Date tanggalHilang;
@@ -77,8 +76,6 @@ public class Pelaporan {
     this.tanggalHilang = tanggalHilang;
   }
 
-
-
   public long getId() {
     return id;
   }
@@ -93,14 +90,6 @@ public class Pelaporan {
 
   public void setBarang(Barang barang) {
     this.barang = barang;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
   }
 
   public String getKeterangan() {

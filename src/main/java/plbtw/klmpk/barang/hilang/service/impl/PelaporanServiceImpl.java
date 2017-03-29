@@ -26,4 +26,14 @@ public class PelaporanServiceImpl implements PelaporanService {
     return pelaporanRepository.findAll();
   }
 
+  @Override
+  public Pelaporan getPelaporan(long id) {
+    return pelaporanRepository.findOne(id);
+  }
+
+  @Override
+  public void addPelaporan(Pelaporan pelaporan) {
+    pelaporanRepository.save(pelaporan);
+  }
+
 }
