@@ -36,4 +36,14 @@ public class PelaporanServiceImpl implements PelaporanService {
     pelaporanRepository.save(pelaporan);
   }
 
+  @Override
+  public void updatePelaporan(Pelaporan pelaporanBaru) {
+    pelaporanRepository.save(pelaporanBaru);
+  }
+
+  @Override
+  public void deletePelaporan(long id) {
+    pelaporanRepository.delete(id);
+  }
+
 }

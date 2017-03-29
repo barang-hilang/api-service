@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import plbtw.klmpk.barang.hilang.entity.User;
 import plbtw.klmpk.barang.hilang.entity.form.request.UserRequest;
 import plbtw.klmpk.barang.hilang.message.CustomResponseMessage;
+import plbtw.klmpk.barang.hilang.service.RoleService;
 import plbtw.klmpk.barang.hilang.service.UserService;
 
 /**
@@ -30,6 +31,8 @@ import plbtw.klmpk.barang.hilang.service.UserService;
 public class UserController {
   @Autowired
   UserService userService;
+  @Autowired
+  RoleService roleService;
 
   @RequestMapping(method = RequestMethod.GET, produces = "application/json")
   public Collection<User> getAllUsers() {
@@ -55,9 +58,35 @@ public class UserController {
       user.setAlamat(userRequest.getAlamat());
       user.setNoHp(userRequest.getNoHp());
       userService.addUser(user);
-      return new CustomResponseMessage(201, "User Has Been Created");
+      return new CustomResponseMessage(200, "User Has Been Created");
     } catch (Exception ex) {
-      return new CustomResponseMessage(400, ex.toString());
+      return new CustomResponseMessage(201, ex.toString());
+    }
+  }
+
+  @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
+  public CustomResponseMessage updateUser(@RequestBody UserRequest userRequest) {
+    try {
+      User userUpdate = userService.getUser(userRequest.getId());
+      userUpdate.setAlamat(userRequest.getAlamat());
+      userUpdate.setEmail(userRequest.getEmail());
+      userUpdate.setNoHp(userRequest.getNoHp());
+      userUpdate.setPassword(userRequest.getPassword());
+      userUpdate.setRole(roleService.getRole(userRequest.getIdRole()));
+      userService.updateUser(userUpdate);
+      return new CustomResponseMessage(200, "Update User successfuly");
+    } catch (Exception ex) {
+      return new CustomResponseMessage(201, ex.toString());
+    }
+  }
+
+  @RequestMapping(method = RequestMethod.DELETE, produces = "application/json")
+  public CustomResponseMessage deleteUser(@RequestBody long idRequest) {
+    try {
+      userService.deleteUser(idRequest);
+      return new CustomResponseMessage(200, "Delete Successful");
+    } catch (Exception ex) {
+      return new CustomResponseMessage(201, ex.toString());
     }
   }
 }

@@ -36,4 +36,14 @@ public class BarangServiceImpl implements BarangService {
     barangRepository.save(barang);
   }
 
+  @Override
+  public void updateBarang(Barang barangBaru) {
+    barangRepository.save(barangBaru);
+  }
+
+  @Override
+  public void deleteBarang(long id) {
+    barangRepository.delete(id);
+  }
+
 }

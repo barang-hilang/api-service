@@ -20,4 +20,8 @@ public interface KategoriBarangService {
 
   void addKategoriBarang(KategoriBarang kategoriBarang);
 
+  void updateKategoriBarang(KategoriBarang baru);
+
+  void deleteKategoriBarang(long id);
+
 }

@@ -36,4 +36,14 @@ public class KategoriBarangServiceImpl implements KategoriBarangService {
     kategoriBarangRepository.save(kategoriBarang);
   }
 
+  @Override
+  public void updateKategoriBarang(KategoriBarang baru) {
+    kategoriBarangRepository.save(baru);
+  }
+
+  @Override
+  public void deleteKategoriBarang(long id) {
+    kategoriBarangRepository.delete(id);
+  }
+
 }

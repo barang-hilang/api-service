@@ -40,4 +40,14 @@ public class RoleServiceImpl implements RoleService {
     roleRepository.save(input);
   }
 
+  @Override
+  public void updateRole(Role roleBaru) {
+    roleRepository.save(roleBaru);
+  }
+
+  @Override
+  public void deleteRole(long id) {
+    roleRepository.delete(id);
+  }
+
 }

@@ -9,12 +9,31 @@ package plbtw.klmpk.barang.hilang.entity.form.request;
  * @author ALz
  */
 public class UserRequest {
+  private long id;
+  private long idRole;
+
+  public long getIdRole() {
+    return idRole;
+  }
+
+  public void setIdRole(long idRole) {
+    this.idRole = idRole;
+  }
+
   private String email, password, alamat, noHp;
 
   public UserRequest() {}
 
   public String getEmail() {
     return email;
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
   }
 
   public void setEmail(String email) {

@@ -18,4 +18,8 @@ public interface BarangService {
   Barang getBarang(long id);
 
   void addBarang(Barang barang);
+
+  void updateBarang(Barang barangbaru);
+
+  void deleteBarang(long id);
 }

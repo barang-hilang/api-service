@@ -18,4 +18,8 @@ public interface UserService {
   User getUser(long id);
 
   void addUser(User user);
+
+  void updateUser(User userBaru);
+
+  void deleteUser(long id);
 }

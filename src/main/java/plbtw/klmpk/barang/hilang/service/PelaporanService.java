@@ -19,4 +19,8 @@ public interface PelaporanService {
   Pelaporan getPelaporan(long id);
 
   void addPelaporan(Pelaporan pelaporan);
+
+  void updatePelaporan(Pelaporan pelaporanBaru);
+
+  void deletePelaporan(long id);
 }
