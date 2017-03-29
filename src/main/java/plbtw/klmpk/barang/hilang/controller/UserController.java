@@ -90,9 +90,9 @@ public class UserController {
   }
 
   @RequestMapping(method = RequestMethod.DELETE, produces = "application/json")
-  public CustomResponseMessage deleteUser(@RequestBody long idRequest) {
+  public CustomResponseMessage deleteUser(@RequestBody UserRequest userRequest) {
     try {
-      userService.deleteUser(idRequest);
+      userService.deleteUser(userRequest.getId());
       return new CustomResponseMessage(200, "Delete Successful");
     } catch (Exception ex) {
       return new CustomResponseMessage(201, ex.toString());
