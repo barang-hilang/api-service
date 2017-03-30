@@ -6,6 +6,9 @@ package plbtw.klmpk.barang.hilang.controller;
 
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +33,14 @@ public class KategoriBarangController {
     return kategoriBarangService.getAllKategoriBarang();
   }
 
+  @RequestMapping(method = RequestMethod.GET, value = "/find/{id}", produces = "application/json")
+  public KategoriBarang getKategoriBarang(@PathVariable("id") long id) {
+    KategoriBarang kategoriBarang = kategoriBarangService.getKategoriBarang(id);
+    Link selfLink = linkTo(UserController.class).withSelfRel();
+    kategoriBarang.add(selfLink);
+    return kategoriBarang;
+  }
+
   @RequestMapping(method = RequestMethod.POST, produces = "application/json")
   public CustomResponseMessage addKategoriBarang(
       @RequestBody KategoriBarangRequest kategoriBarangRequest) {
@@ -42,5 +53,30 @@ public class KategoriBarangController {
       return new CustomResponseMessage(201, ex.toString());
     }
 
+  }
+
+  @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
+  public CustomResponseMessage updateKategoriBarang(
+      @RequestBody KategoriBarangRequest kategoriBarangRequest) {
+    try {
+      KategoriBarang kategoriBarang =
+          kategoriBarangService.getKategoriBarang(kategoriBarangRequest.getId());
+      kategoriBarang.setJenis(kategoriBarangRequest.getJenis());
+      kategoriBarangService.updateKategoriBarang(kategoriBarang);
+      return new CustomResponseMessage(200, "Update Successfull");
+    } catch (Exception ex) {
+      return new CustomResponseMessage(201, ex.toString());
+    }
+  }
+
+  @RequestMapping(method = RequestMethod.DELETE, produces = "application/json")
+  public CustomResponseMessage deleteKategoriBarang(
+      @RequestBody KategoriBarangRequest kategoriBarangRequest) {
+    try {
+      kategoriBarangService.deleteKategoriBarang(kategoriBarangRequest.getId());
+      return new CustomResponseMessage(200, "Delete Kategori Barang Succesfull");
+    } catch (Exception ex) {
+      return new CustomResponseMessage(201, ex.toString());
+    }
   }
 }

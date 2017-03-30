@@ -9,7 +9,16 @@ package plbtw.klmpk.barang.hilang.entity.form.request;
  * @author ALz
  */
 public class KategoriBarangRequest {
+  private long id;
   private String jenis;
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
 
   public String getJenis() {
     return jenis;

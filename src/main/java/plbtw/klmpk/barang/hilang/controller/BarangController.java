@@ -89,7 +89,7 @@ public class BarangController {
       barangService.deleteBarang(barangRequest.getId());
       return new CustomResponseMessage(200, "Delete Barang successfull");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, "Failed to delete Barang");
+      return new CustomResponseMessage(201, ex.toString());
     }
   }
 
