@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.springframework.hateoas.ResourceSupport;
 
 /**
  *
@@ -18,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "barang_hilang_list_barang")
-public class Barang {
+public class Barang extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
@@ -34,7 +35,7 @@ public class Barang {
   private int jumlah;
   private String url_image;
 
-  public long getId() {
+  public long getIdBarang() {
     return id;
   }
 

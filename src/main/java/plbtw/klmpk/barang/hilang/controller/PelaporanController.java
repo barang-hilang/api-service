@@ -6,6 +6,9 @@ package plbtw.klmpk.barang.hilang.controller;
 
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +39,14 @@ public class PelaporanController {
     return pelaporanService.getAllPelaporan();
   }
 
+  @RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")
+  public Pelaporan getPelaporan(@PathVariable("id") long id) {
+    Pelaporan pelaporan = pelaporanService.getPelaporan(id);
+    Link selfLink = linkTo(UserController.class).withSelfRel();
+    pelaporan.add(selfLink);
+    return pelaporan;
+  }
+
   @RequestMapping(method = RequestMethod.POST, produces = "application/json")
   public CustomResponseMessage addPelaporan(@RequestBody PelaporanRequest pelaporanRequest) {
     try {
@@ -50,5 +61,32 @@ public class PelaporanController {
     }
   }
 
+  @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
+  public CustomResponseMessage updatePelaporan(@RequestBody PelaporanRequest pelaporanRequest) {
+    try {
+      Pelaporan pelaporan = pelaporanService.getPelaporan(pelaporanRequest.getIdPelaporan());
+      pelaporan.setBarang(barangService.getBarang(pelaporanRequest.getIdBarang()));
+      pelaporan.setKeterangan(pelaporanRequest.getKeterangan());
+      pelaporan.setPelapor(userService.getUser(pelaporanRequest.getIdPelapor()));
+      pelaporan.setTanggalDitemukan(pelaporanRequest.getTanggalDitemukan());
+      pelaporan.setTanggalHilang(pelaporanRequest.getTanggalHilang());
+      pelaporan.setTempatDitemukan(pelaporanRequest.getTempatDitemukan());
+      pelaporan.setTempatHilang(pelaporanRequest.getTempatHilang());
+      pelaporanService.updatePelaporan(pelaporan);
+      return new CustomResponseMessage(200, "Pelaporan berhasil di buat");
+    } catch (Exception ex) {
+      return new CustomResponseMessage(201, ex.toString());
+    }
+  }
+
+  @RequestMapping(method = RequestMethod.DELETE, produces = "applicaiton/json")
+  public CustomResponseMessage deletePelaporan(@RequestBody PelaporanRequest pelaporanRequest) {
+    try {
+      pelaporanService.deletePelaporan(pelaporanRequest.getIdPelaporan());
+      return new CustomResponseMessage(200, "Pelaporan berhasil dihapus");
+    } catch (Exception ex) {
+      return new CustomResponseMessage(201, ex.toString());
+    }
+  }
 
 }

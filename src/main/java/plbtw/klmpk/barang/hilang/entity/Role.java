@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.springframework.hateoas.ResourceSupport;
 
 /**
  *
@@ -16,14 +17,14 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "barang_hilang_role")
-public class Role {
+public class Role extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   private String role;
 
-  public long getId() {
+  public long getIdRole() {
     return id;
   }
 

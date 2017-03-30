@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.hateoas.ResourceSupport;
 
 /**
  *
@@ -17,14 +18,14 @@ import org.springframework.beans.factory.annotation.Required;
  */
 @Entity
 @Table(name = "barang_hilang_kategori_barang")
-public class KategoriBarang {
+public class KategoriBarang extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   private String jenis;
 
-  public long getId() {
+  public long getIdKategoriBarang() {
     return id;
   }
 

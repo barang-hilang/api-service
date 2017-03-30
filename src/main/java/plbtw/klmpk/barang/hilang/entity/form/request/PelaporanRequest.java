@@ -11,10 +11,19 @@ import java.sql.Date;
  * @author ALz
  */
 public class PelaporanRequest {
+  private long idPelaporan;
   private long idBarang;
   private long idPelapor;
   private String email, keterangan, tempatHilang, tempatDitemukan;
   private Date tanggalHilang, tanggalDitemukan;
+
+  public long getIdPelaporan() {
+    return idPelaporan;
+  }
+
+  public void setIdPelaporan(long idPelaporan) {
+    this.idPelaporan = idPelaporan;
+  }
 
   public long getIdBarang() {
     return idBarang;

@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.springframework.hateoas.ResourceSupport;
 
 /**
  *
@@ -19,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "barang_hilang_pelaporan")
-public class Pelaporan {
+public class Pelaporan extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
@@ -76,7 +77,7 @@ public class Pelaporan {
     this.tanggalHilang = tanggalHilang;
   }
 
-  public long getId() {
+  public long getIdPelaporan() {
     return id;
   }
 

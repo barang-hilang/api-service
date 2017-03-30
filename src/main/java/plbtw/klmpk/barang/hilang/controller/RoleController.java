@@ -5,17 +5,16 @@
 package plbtw.klmpk.barang.hilang.controller;
 
 import java.util.Collection;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import plbtw.klmpk.barang.hilang.entity.Role;
-import plbtw.klmpk.barang.hilang.entity.User;
 import plbtw.klmpk.barang.hilang.entity.form.request.RoleRequest;
-import plbtw.klmpk.barang.hilang.entity.form.request.UserRequest;
 import plbtw.klmpk.barang.hilang.message.CustomResponseMessage;
 import plbtw.klmpk.barang.hilang.service.RoleService;
 
@@ -36,7 +35,10 @@ public class RoleController {
 
   @RequestMapping(value = "find/{id}", method = RequestMethod.GET, produces = "application/json")
   public Role find(@PathVariable("id") long id) {
-    return roleService.getRole(id);
+    Role role = roleService.getRole(id);
+    Link selfLink = linkTo(UserController.class).withSelfRel();
+    role.add(selfLink);
+    return role;
   }
 
   @RequestMapping(method = RequestMethod.POST, produces = "application/json")
