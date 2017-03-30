@@ -20,9 +20,19 @@ public class UserRequest {
     this.idRole = idRole;
   }
 
-  private String email, password, alamat, noHp;
+  private String email, username, password, alamat, noHp;
 
   public UserRequest() {}
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+
 
   public String getEmail() {
     return email;

@@ -4,14 +4,11 @@
  */
 package plbtw.klmpk.barang.hilang.controller;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +59,7 @@ public class UserController {
   public CustomResponseMessage addUser(@RequestBody UserRequest userRequest) {
     try {
       User user = new User();
+      user.setUsername(userRequest.getUsername());
       user.setEmail(userRequest.getEmail());
       user.setPassword(userRequest.getPassword());
       user.setAlamat(userRequest.getAlamat());
@@ -77,6 +75,7 @@ public class UserController {
   public CustomResponseMessage updateUser(@RequestBody UserRequest userRequest) {
     try {
       User userUpdate = userService.getUser(userRequest.getId());
+      userUpdate.setUsername(userRequest.getUsername());
       userUpdate.setAlamat(userRequest.getAlamat());
       userUpdate.setEmail(userRequest.getEmail());
       userUpdate.setNoHp(userRequest.getNoHp());
