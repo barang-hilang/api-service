@@ -33,6 +33,7 @@ public class Pelaporan extends ResourceSupport {
   
   @ManyToOne(cascade = CascadeType.MERGE)
   private User penemu;
+  
 
   private String keterangan;
   private String tempatHilang;
