@@ -30,6 +30,9 @@ public class Pelaporan extends ResourceSupport {
 
   @ManyToOne(cascade = CascadeType.MERGE)
   private User pelapor;
+  
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private User penemu;
 
   private String keterangan;
   private String tempatHilang;
@@ -43,6 +46,14 @@ public class Pelaporan extends ResourceSupport {
 
   public void setPelapor(User pelapor) {
     this.pelapor = pelapor;
+  }
+  
+  public User getPenemu() {
+    return penemu;
+  }
+
+  public void setPenemu(User penemu) {
+    this.penemu = penemu;
   }
 
   public String getTempatDitemukan() {

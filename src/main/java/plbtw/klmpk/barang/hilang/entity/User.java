@@ -24,7 +24,7 @@ public class User extends ResourceSupport {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long idUser;
 
-  @ManyToOne(cascade = CascadeType.MERGE)
+  /*@ManyToOne(cascade = CascadeType.MERGE)
   private Role role;
 
   public Role getRole() {
@@ -33,7 +33,7 @@ public class User extends ResourceSupport {
 
   public void setRole(Role role) {
     this.role = role;
-  }
+  }*/
 
   private String email, username, password, alamat, noHp;
 
