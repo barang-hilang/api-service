@@ -24,21 +24,21 @@ public class User extends ResourceSupport {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long idUser;
 
-  /*@ManyToOne(cascade = CascadeType.MERGE)
-  private Role role;
-
-  public Role getRole() {
-    return role;
-  }
-
-  public void setRole(Role role) {
-    this.role = role;
-  }*/
-
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private Developer dev;
+  
   private String email, username, password, alamat, noHp;
 
   private String apiKey;
 
+  public Developer dev() {
+    return dev;
+  }
+
+  public void setDev(Developer dev) {
+    this.dev = dev;
+  }
+  
   public String getUsername() {
     return username;
   }

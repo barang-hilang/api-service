@@ -10,16 +10,6 @@ package plbtw.klmpk.barang.hilang.entity.form.request;
  */
 public class UserRequest {
   private long id;
-  private long idRole;
-
-  public long getIdRole() {
-    return idRole;
-  }
-
-  public void setIdRole(long idRole) {
-    this.idRole = idRole;
-  }
-
   private String email, username, password, alamat, noHp;
 
   public UserRequest() {}

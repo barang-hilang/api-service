@@ -29,8 +29,7 @@ import plbtw.klmpk.barang.hilang.service.UserService;
 public class UserController {
   @Autowired
   UserService userService;
-  @Autowired
-  RoleService roleService;
+ 
 
   @RequestMapping(method = RequestMethod.GET, produces = "application/json")
   public Collection<User> getAllUsers() {
@@ -80,7 +79,6 @@ public class UserController {
       userUpdate.setEmail(userRequest.getEmail());
       userUpdate.setNoHp(userRequest.getNoHp());
       userUpdate.setPassword(userRequest.getPassword());
-      userUpdate.setRole(roleService.getRole(userRequest.getIdRole()));
       userService.updateUser(userUpdate);
       return new CustomResponseMessage(200, "Update User successfuly");
     } catch (Exception ex) {
