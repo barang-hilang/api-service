@@ -22,7 +22,7 @@ import org.springframework.hateoas.ResourceSupport;
 public class Barang extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @ManyToOne(cascade = CascadeType.MERGE)
   private KategoriBarang kategoriBarang;

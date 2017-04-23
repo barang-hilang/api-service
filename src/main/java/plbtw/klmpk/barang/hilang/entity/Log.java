@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this license header, choose License Headers in Project Properties. To change this
+ * template file, choose Tools | Templates and open the template in the editor.
  */
 package plbtw.klmpk.barang.hilang.entity;
 
@@ -14,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.springframework.hateoas.ResourceSupport;
+
 /**
  *
  * @author CMDDJ
@@ -23,31 +23,31 @@ import org.springframework.hateoas.ResourceSupport;
 public class Log extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
-   @ManyToOne(cascade = CascadeType.MERGE)
+  @ManyToOne(cascade = CascadeType.MERGE)
   private Developer dev;
-  
-  private Date time_request;  
-  
-  
-   public long getIdLog() {
+
+  private Date time_request;
+
+
+  public long getIdLog() {
     return id;
   }
 
   public void setId(long id) {
     this.id = id;
   }
-  
-   public Developer dev() {
+
+  public Developer dev() {
     return dev;
   }
 
   public void setDev(Developer dev) {
     this.dev = dev;
   }
-  
-   public Date getTime_request() {
+
+  public Date getTime_request() {
     return time_request;
   }
 

@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties. To change this
- * template file, choose Tools | Templates and open the template in the editor.
- */
 package plbtw.klmpk.barang.hilang.controller;
 
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,9 +52,9 @@ public class PelaporanController {
       pelaporan.setTanggalHilang(pelaporanRequest.getTanggalHilang());
       pelaporan.setTempatHilang(pelaporanRequest.getTempatHilang());
       pelaporanService.addPelaporan(pelaporan);
-      return new CustomResponseMessage(200, "Pelaporan has been added");
+      return new CustomResponseMessage(HttpStatus.CREATED, "Pelaporan has been added");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
   }
 
@@ -73,9 +70,9 @@ public class PelaporanController {
       pelaporan.setTempatDitemukan(pelaporanRequest.getTempatDitemukan());
       pelaporan.setTempatHilang(pelaporanRequest.getTempatHilang());
       pelaporanService.updatePelaporan(pelaporan);
-      return new CustomResponseMessage(200, "Pelaporan berhasil di buat");
+      return new CustomResponseMessage(HttpStatus.CREATED, "Pelaporan berhasil di buat");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
   }
 
@@ -83,9 +80,9 @@ public class PelaporanController {
   public CustomResponseMessage deletePelaporan(@RequestBody PelaporanRequest pelaporanRequest) {
     try {
       pelaporanService.deletePelaporan(pelaporanRequest.getIdPelaporan());
-      return new CustomResponseMessage(200, "Pelaporan berhasil dihapus");
+      return new CustomResponseMessage(HttpStatus.CREATED, "Pelaporan berhasil dihapus");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.CREATED, ex.toString());
     }
   }
 

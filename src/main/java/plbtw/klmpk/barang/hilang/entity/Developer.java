@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this license header, choose License Headers in Project Properties. To change this
+ * template file, choose Tools | Templates and open the template in the editor.
  */
 package plbtw.klmpk.barang.hilang.entity;
 
@@ -24,25 +23,38 @@ import org.springframework.hateoas.ResourceSupport;
 public class Developer extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
-   @ManyToOne(cascade = CascadeType.MERGE)
+  @ManyToOne(cascade = CascadeType.MERGE)
   private Role role;
-  
+
   private String secretKey;
   private String token;
   private String email;
   private String password;
 
-  
-   public long getIdDeveloper() {
+  public Developer() {}
+
+
+
+  public Developer(Role role, String secretKey, String token, String email, String password) {
+    this.role = role;
+    this.secretKey = secretKey;
+    this.token = token;
+    this.email = email;
+    this.password = password;
+  }
+
+
+
+  public long getIdDeveloper() {
     return id;
   }
 
   public void setId(long id) {
     this.id = id;
   }
-  
+
   public Role getRole() {
     return role;
   }
@@ -50,32 +62,32 @@ public class Developer extends ResourceSupport {
   public void setRole(Role role) {
     this.role = role;
   }
-  
-   public String getSecretKey() {
+
+  public String getSecretKey() {
     return secretKey;
   }
 
   public void setSecretKey(String secretKey) {
     this.secretKey = secretKey;
   }
-  
-   public String getToken() {
+
+  public String getToken() {
     return token;
   }
 
   public void setToken(String token) {
     this.token = token;
   }
-  
-   public String getEmail() {
+
+  public String getEmail() {
     return email;
   }
 
   public void setEmail(String email) {
     this.email = email;
   }
-  
-   public String getPassword() {
+
+  public String getPassword() {
     return password;
   }
 

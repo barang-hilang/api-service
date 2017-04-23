@@ -1,12 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this license header, choose License Headers in Project Properties. To change this
+ * template file, choose Tools | Templates and open the template in the editor.
  */
 package plbtw.klmpk.barang.hilang.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,23 +47,23 @@ public class LogController {
       log.setId(logRequest.getIdLog());
       log.setDev(developerService.getDeveloper(logRequest.getIdDev()));
       log.setTime_request(logRequest.getTime_request());
-   
-      return new CustomResponseMessage(200, "Add Log berhasil");
+
+      return new CustomResponseMessage(HttpStatus.CREATED, "Add Log berhasil");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
 
   }
 
- 
+
 
   @RequestMapping(method = RequestMethod.DELETE, produces = "application/json")
   public CustomResponseMessage deleteLog(@RequestBody LogRequest logRequest) {
     try {
       logService.deleteLog(logRequest.getIdLog());
-      return new CustomResponseMessage(200, "Delete log successfull");
+      return new CustomResponseMessage(HttpStatus.CREATED, "Delete log successfull");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
   }
 }

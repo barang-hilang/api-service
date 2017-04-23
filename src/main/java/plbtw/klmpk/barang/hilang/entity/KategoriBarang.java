@@ -21,7 +21,7 @@ import org.springframework.hateoas.ResourceSupport;
 public class KategoriBarang extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   private String jenis;
 

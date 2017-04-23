@@ -8,6 +8,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,9 +59,9 @@ public class BarangController {
       barang.setStatus(barangRequest.getStatus());
       barang.setUrl_image(barangRequest.getUrl_image());
       barang.setUser(userService.getUser(barangRequest.getIdUserPemilik()));
-      return new CustomResponseMessage(200, "Add Barang berhasil");
+      return new CustomResponseMessage(HttpStatus.CREATED, "Add Barang berhasil");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
 
   }
@@ -77,9 +78,9 @@ public class BarangController {
       barang.setUrl_image(barangRequest.getUrl_image());
       barang.setUser(userService.getUser(barangRequest.getIdUserPemilik()));
       barangService.updateBarang(barang);
-      return new CustomResponseMessage(200, "Update Barang Successfull");
+      return new CustomResponseMessage(HttpStatus.CREATED, "Update Barang Successfull");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
   }
 
@@ -87,9 +88,9 @@ public class BarangController {
   public CustomResponseMessage deleteBarang(@RequestBody BarangRequest barangRequest) {
     try {
       barangService.deleteBarang(barangRequest.getId());
-      return new CustomResponseMessage(200, "Delete Barang successfull");
+      return new CustomResponseMessage(HttpStatus.CREATED, "Delete Barang successfull");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
   }
 

@@ -22,11 +22,11 @@ import org.springframework.hateoas.ResourceSupport;
 public class User extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long idUser;
+  private Long idUser;
 
   @ManyToOne(cascade = CascadeType.MERGE)
   private Developer dev;
-  
+
   private String email, username, password, alamat, noHp;
 
   private String apiKey;
@@ -38,7 +38,7 @@ public class User extends ResourceSupport {
   public void setDev(Developer dev) {
     this.dev = dev;
   }
-  
+
   public String getUsername() {
     return username;
   }

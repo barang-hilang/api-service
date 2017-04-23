@@ -4,21 +4,35 @@
  */
 package plbtw.klmpk.barang.hilang.message;
 
+import java.util.Collection;
+import org.springframework.hateoas.ResourceSupport;
+import org.springframework.http.HttpStatus;
+
 /**
  *
  * @author ALz
  */
-public class CustomResponseMessage {
-  private long HttpStatus;
+public class CustomResponseMessage extends ResourceSupport {
+
   private String message;
 
+  private HttpStatus HttpStatus;
+
+  private Collection<?> result;
 
   public CustomResponseMessage() {}
 
-  public CustomResponseMessage(long HttpStatus, String message) {
-    this.HttpStatus = HttpStatus;
+  public CustomResponseMessage(HttpStatus httpStatus, String message) {
+    this.HttpStatus = httpStatus;
     this.message = message;
   }
+
+  public CustomResponseMessage(HttpStatus httpStatus, String message, Collection<?> objek) {
+    this.HttpStatus = httpStatus;
+    this.message = message;
+    this.result = objek;
+  }
+
 
   public String getMessage() {
     return message;
@@ -28,13 +42,20 @@ public class CustomResponseMessage {
     this.message = message;
   }
 
-  public long getHttpStatus() {
+  public HttpStatus getHttpStatus() {
     return HttpStatus;
   }
 
-  public void setHttpStatus(long HttpStatus) {
+  public void setHttpStatus(HttpStatus HttpStatus) {
     this.HttpStatus = HttpStatus;
   }
 
+  public Collection<?> getResult() {
+    return result;
+  }
+
+  public void setResult(Collection<?> objek) {
+    this.result = objek;
+  }
 
 }

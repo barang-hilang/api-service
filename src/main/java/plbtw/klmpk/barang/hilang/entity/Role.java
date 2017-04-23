@@ -20,9 +20,15 @@ import org.springframework.hateoas.ResourceSupport;
 public class Role extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   private String role;
+
+  public Role(String role) {
+    this.role = role;
+  }
+
+  public Role() {}
 
   public long getIdRole() {
     return id;

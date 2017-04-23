@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,7 @@ import plbtw.klmpk.barang.hilang.service.UserService;
 public class UserController {
   @Autowired
   UserService userService;
- 
+
 
   @RequestMapping(method = RequestMethod.GET, produces = "application/json")
   public Collection<User> getAllUsers() {
@@ -49,11 +50,6 @@ public class UserController {
     return user;
   }
 
-  @RequestMapping(value = "/test/", method = RequestMethod.GET, produces = "application/json")
-  public CustomResponseMessage showMessage() {
-    return new CustomResponseMessage(1, "try message");
-  }
-
   @RequestMapping(method = RequestMethod.POST, produces = "application/json")
   public CustomResponseMessage addUser(@RequestBody UserRequest userRequest) {
     try {
@@ -64,9 +60,9 @@ public class UserController {
       user.setAlamat(userRequest.getAlamat());
       user.setNoHp(userRequest.getNoHp());
       userService.addUser(user);
-      return new CustomResponseMessage(200, "User Has Been Created");
+      return new CustomResponseMessage(HttpStatus.CREATED, "User Has Been Created");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
   }
 
@@ -80,9 +76,9 @@ public class UserController {
       userUpdate.setNoHp(userRequest.getNoHp());
       userUpdate.setPassword(userRequest.getPassword());
       userService.updateUser(userUpdate);
-      return new CustomResponseMessage(200, "Update User successfuly");
+      return new CustomResponseMessage(HttpStatus.CREATED, "Update User successfuly");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
   }
 
@@ -90,9 +86,9 @@ public class UserController {
   public CustomResponseMessage deleteUser(@RequestBody UserRequest userRequest) {
     try {
       userService.deleteUser(userRequest.getId());
-      return new CustomResponseMessage(200, "Delete Successful");
+      return new CustomResponseMessage(HttpStatus.CREATED, "Delete Successful");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
   }
 }

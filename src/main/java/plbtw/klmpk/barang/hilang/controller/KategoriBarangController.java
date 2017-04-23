@@ -8,6 +8,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,9 +49,9 @@ public class KategoriBarangController {
       KategoriBarang kategoriBarang = new KategoriBarang();
       kategoriBarang.setJenis(kategoriBarangRequest.getJenis());
       kategoriBarangService.addKategoriBarang(kategoriBarang);
-      return new CustomResponseMessage(200, "Kategori Barang berhasil di tambahkan");
+      return new CustomResponseMessage(HttpStatus.CREATED, "Kategori Barang berhasil di tambahkan");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
 
   }
@@ -63,9 +64,9 @@ public class KategoriBarangController {
           kategoriBarangService.getKategoriBarang(kategoriBarangRequest.getId());
       kategoriBarang.setJenis(kategoriBarangRequest.getJenis());
       kategoriBarangService.updateKategoriBarang(kategoriBarang);
-      return new CustomResponseMessage(200, "Update Successfull");
+      return new CustomResponseMessage(HttpStatus.CREATED, "Update Successfull");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
   }
 
@@ -74,9 +75,9 @@ public class KategoriBarangController {
       @RequestBody KategoriBarangRequest kategoriBarangRequest) {
     try {
       kategoriBarangService.deleteKategoriBarang(kategoriBarangRequest.getId());
-      return new CustomResponseMessage(200, "Delete Kategori Barang Succesfull");
+      return new CustomResponseMessage(HttpStatus.CREATED, "Delete Kategori Barang Succesfull");
     } catch (Exception ex) {
-      return new CustomResponseMessage(201, ex.toString());
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
   }
 }

@@ -23,17 +23,17 @@ import org.springframework.hateoas.ResourceSupport;
 public class Pelaporan extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @ManyToOne(cascade = CascadeType.MERGE)
   private Barang barang;
 
   @ManyToOne(cascade = CascadeType.MERGE)
   private User pelapor;
-  
+
   @ManyToOne(cascade = CascadeType.MERGE)
   private User penemu;
-  
+
 
   private String keterangan;
   private String tempatHilang;
@@ -48,7 +48,7 @@ public class Pelaporan extends ResourceSupport {
   public void setPelapor(User pelapor) {
     this.pelapor = pelapor;
   }
-  
+
   public User getPenemu() {
     return penemu;
   }
