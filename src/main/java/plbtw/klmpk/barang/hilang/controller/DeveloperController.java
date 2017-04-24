@@ -5,6 +5,7 @@
 package plbtw.klmpk.barang.hilang.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -36,7 +37,7 @@ public class DeveloperController {
   RoleService roleService;
 
   @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-  public @ResponseBody CustomResponseMessage getAllDevelopers() {
+  public CustomResponseMessage getAllDevelopers() {
     ArrayList<Developer> allDevelopers = (ArrayList<Developer>) developerService.getAllDevelopers();
     for (int i = 0; i < allDevelopers.size(); i++) {
       Link selfLink = linkTo(
@@ -58,14 +59,21 @@ public class DeveloperController {
   }
 
   @RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")
-  public Developer getDeveloper(@PathVariable("id") long id) {
+  public @ResponseBody CustomResponseMessage getDeveloper(@PathVariable("id") long id) {
     Developer developer = developerService.getDeveloper(id);
     // Untuk HATEOAS
     Link selfLink = linkTo(DeveloperController.class).withSelfRel();
     developer.getRole().add(
         linkTo(methodOn(RoleController.class).find(developer.getRole().getIdRole())).withSelfRel());
     developer.add(selfLink);
-    return developer;
+    CustomResponseMessage result = new CustomResponseMessage();
+    result.add(linkTo(DeveloperController.class).withSelfRel());
+    result.setHttpStatus(HttpStatus.OK);
+    result.setMessage("Success");
+    List<Developer> tempCollectionDev = new ArrayList<>();
+    tempCollectionDev.add(developer);
+    result.setResult(tempCollectionDev);
+    return result;
   }
 
   @RequestMapping(method = RequestMethod.POST, produces = "application/json")
