@@ -51,4 +51,9 @@ public class DeveloperServicImpl implements DeveloperService {
   public void deleteDeveloper(long id) {
     devRepository.delete(id);
   }
+
+  @Override
+  public Developer getDeveloperByApiKey(String token) {
+    return devRepository.findByToken(token);
+  }
 }

@@ -4,6 +4,7 @@
  */
 package plbtw.klmpk.barang.hilang.controller;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import plbtw.klmpk.barang.hilang.service.DeveloperService;
 @RestController
 @RequestMapping(value = "/api/v1/developers")
 public class DeveloperController {
+
   @Autowired
   DeveloperService developerService;
 
@@ -96,8 +98,11 @@ public class DeveloperController {
   public CustomResponseMessage updateDeveloper(@RequestBody DeveloperRequest developerRequest) {
     try {
       Developer developerUpdate = developerService.getDeveloper(developerRequest.getIdDeveloper());
-      developerUpdate.setSecretKey(developerRequest.getSecretKey());
-      developerUpdate.setToken(developerRequest.getToken());
+      SecureRandom random = new SecureRandom();
+      byte bytes[] = new byte[20];
+      random.nextBytes(bytes);
+      String token = bytes.toString();
+      developerUpdate.setToken(token);
       developerUpdate.setEmail(developerRequest.getEmail());
       developerUpdate.setPassword(developerRequest.getPassword());
       developerService.updateDeveloper(developerUpdate);

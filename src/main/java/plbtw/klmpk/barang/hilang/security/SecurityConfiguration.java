@@ -25,9 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
    */
   @Override
   public void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-    // auth.inMemoryAuthentication().withUser("greg").password("turnquist").roles("USER").and()
-    // .withUser("ollie").password("gierke").roles("USER", "ADMIN");
+    // auth.inMemoryAuthentication().withUser("greg").password("turnquist").roles("ADMIN");
   }
 
   /**
@@ -39,8 +37,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
    */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-
-    // http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/barang")
+    //
+    // http.httpBasic().and().authorizeRequests()
+    // .antMatchers(HttpMethod.GET, "/api/v1/developers")
     // .hasRole("ADMIN").antMatchers(HttpMethod.POST, "/employees").hasRole("ADMIN")
     // .antMatchers(HttpMethod.PUT, "/employees/**").hasRole("ADMIN")
     // .antMatchers(HttpMethod.PATCH, "/employees/**").hasRole("ADMIN").and().csrf().disable();
