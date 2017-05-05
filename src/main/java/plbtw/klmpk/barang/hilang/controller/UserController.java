@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -43,6 +44,7 @@ public class UserController {
     return true;
   }
 
+  @CrossOrigin(origins = "*")
   @RequestMapping(method = RequestMethod.GET, produces = "application/json")
   public CustomResponseMessage getAllUsers(@RequestHeader String apiKey) {
     try {
