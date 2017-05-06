@@ -18,6 +18,8 @@ public interface DeveloperService {
   Developer getDeveloper(long id);
 
   Developer getDeveloperByApiKey(String token);
+  
+  Developer getDeveloperByEmailAndPassword(String email,String password);
 
   void addDeveloper(Developer dev);
 

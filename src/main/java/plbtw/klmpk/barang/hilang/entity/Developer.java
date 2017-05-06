@@ -45,8 +45,6 @@ public class Developer extends ResourceSupport {
     this.password = password;
   }
 
-
-
   public long getIdDeveloper() {
     return id;
   }

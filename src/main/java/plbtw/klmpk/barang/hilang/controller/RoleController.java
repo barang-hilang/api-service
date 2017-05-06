@@ -65,6 +65,7 @@ public class RoleController {
   public CustomResponseMessage updateRole(@RequestBody RoleRequest roleRequest) {
     try {
       Role role = roleService.getRole(roleRequest.getId());
+        System.out.println(role.toString());
       role.setRole(roleRequest.getRole());
       roleService.updateRole(role);
       return new CustomResponseMessage(HttpStatus.CREATED, "Update Role Succesfull");

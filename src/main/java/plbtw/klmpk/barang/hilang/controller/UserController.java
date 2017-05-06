@@ -31,6 +31,7 @@ import plbtw.klmpk.barang.hilang.service.UserService;
  * @author ALz
  */
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/v1/users")
 public class UserController {
   @Autowired
@@ -43,8 +44,7 @@ public class UserController {
       return false;
     return true;
   }
-
-  @CrossOrigin(origins = "*")
+  
   @RequestMapping(method = RequestMethod.GET, produces = "application/json")
   public CustomResponseMessage getAllUsers(@RequestHeader String apiKey) {
     try {

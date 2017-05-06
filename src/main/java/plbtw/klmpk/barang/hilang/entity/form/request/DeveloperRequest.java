@@ -13,7 +13,7 @@ import plbtw.klmpk.barang.hilang.entity.Role;
  */
 public class DeveloperRequest {
     
-  private long idDev;
+  private long id;
   private long idrole;
   private String secretKey;
   private String token;
@@ -22,11 +22,11 @@ public class DeveloperRequest {
 
   
    public long getIdDeveloper() {
-    return idDev;
+    return id;
   }
 
   public void setId(long idDev) {
-    this.idDev = idDev;
+    this.id = idDev;
   }
   
   public long getIdrole() {

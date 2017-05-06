@@ -22,38 +22,43 @@ import plbtw.klmpk.barang.hilang.service.DeveloperService;
 @Service
 public class DeveloperServicImpl implements DeveloperService {
 
-  @Autowired
-  private DeveloperRepository devRepository;
+    @Autowired
+    private DeveloperRepository devRepository;
 
-  @Override
-  public Collection getAllDevelopers() {
-    List<Developer> result = new ArrayList<Developer>();
-    result = devRepository.findAll();
-    return result;
-  }
+    @Override
+    public Collection getAllDevelopers() {
+        List<Developer> result = new ArrayList<Developer>();
+        result = devRepository.findAll();
+        return result;
+    }
 
-  @Override
-  public void addDeveloper(Developer dev) {
-    devRepository.save(dev);
-  }
+    @Override
+    public void addDeveloper(Developer dev) {
+        devRepository.save(dev);
+    }
 
-  @Override
-  public Developer getDeveloper(long id) {
-    return devRepository.findOne(id);
-  }
+    @Override
+    public Developer getDeveloper(long id) {
+        return devRepository.findOne(id);
+    }
 
-  @Override
-  public void updateDeveloper(Developer devBaru) {
-    devRepository.save(devBaru);
-  }
+    @Override
+    public void updateDeveloper(Developer devBaru) {
+        devRepository.save(devBaru);
+    }
 
-  @Override
-  public void deleteDeveloper(long id) {
-    devRepository.delete(id);
-  }
+    @Override
+    public void deleteDeveloper(long id) {
+        devRepository.delete(id);
+    }
 
-  @Override
-  public Developer getDeveloperByApiKey(String token) {
-    return devRepository.findByToken(token);
-  }
+    @Override
+    public Developer getDeveloperByApiKey(String token) {
+        return devRepository.findByToken(token);
+    }
+
+    @Override
+    public Developer getDeveloperByEmailAndPassword(String email, String password) {
+        return devRepository.findByEmailAndPassword(email,password);
+    }
 }
