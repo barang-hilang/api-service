@@ -15,12 +15,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import plbtw.klmpk.barang.hilang.entity.Developer;
 import plbtw.klmpk.barang.hilang.entity.form.request.DeveloperRequest;
+import plbtw.klmpk.barang.hilang.entity.form.request.LoginAuthRequest;
 import plbtw.klmpk.barang.hilang.message.CustomResponseMessage;
 import plbtw.klmpk.barang.hilang.service.RoleService;
 import plbtw.klmpk.barang.hilang.service.DeveloperService;
@@ -40,9 +42,11 @@ public class DeveloperController {
     @Autowired
     RoleService roleService;
 
-    @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public CustomResponseMessage login(@RequestBody String email, @RequestBody String password) {
-        Developer loggedDeveloper = developerService.getDeveloperByEmailAndPassword(email, password);
+    //Login
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/auth", method = RequestMethod.POST, produces = "application/json")
+    public CustomResponseMessage login(@RequestBody LoginAuthRequest req) {
+        Developer loggedDeveloper = developerService.getDeveloperByEmailAndPassword(req.getEmail(), req.getPassword());
         CustomResponseMessage resultMessage = new CustomResponseMessage();
         if (loggedDeveloper == null) {
             resultMessage.setResult(null);
@@ -60,7 +64,7 @@ public class DeveloperController {
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public CustomResponseMessage getAllDevelopers() {
-        ArrayList<Developer> allDevelopers = (ArrayList<Developer>) developerService.getAllDevelopers();
+        List<Developer> allDevelopers = (List<Developer>) developerService.getAllDevelopers();
         for (int i = 0; i < allDevelopers.size(); i++) {
             Link selfLink = linkTo(
                     methodOn(DeveloperController.class).getDeveloper(allDevelopers.get(i).getIdDeveloper()))
@@ -104,14 +108,20 @@ public class DeveloperController {
         try {
             Developer developer = new Developer();
             developer.setRole(roleService.getRole(developerRequest.getIdrole()));
-            developer.setSecretKey(developerRequest.getSecretKey());
-            developer.setToken(developerRequest.getToken());
+                SecureRandom random = new SecureRandom();
+                byte bytes[] = new byte[20];
+                random.nextBytes(bytes);
+                String token = bytes.toString();
+            developer.setToken(token);
+            developer.setSecretKey(token);
             developer.setEmail(developerRequest.getEmail());
             developer.setPassword(developerRequest.getPassword());
             developerService.addDeveloper(developer);
-            return new CustomResponseMessage(HttpStatus.CREATED, "Developer Has Been Created");
+            List<Developer> result = new ArrayList<>();
+            result.add(developer);
+            return new CustomResponseMessage(HttpStatus.CREATED, "Developer Has Been Created",result);
         } catch (Exception ex) {
-            return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
+            return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage());
         }
     }
 

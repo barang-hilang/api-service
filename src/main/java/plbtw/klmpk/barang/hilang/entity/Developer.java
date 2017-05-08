@@ -23,7 +23,7 @@ import org.springframework.hateoas.ResourceSupport;
 public class Developer extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Long idDeveloper;
 
   @ManyToOne(cascade = CascadeType.MERGE)
   private Role role;
@@ -45,12 +45,12 @@ public class Developer extends ResourceSupport {
     this.password = password;
   }
 
-  public long getIdDeveloper() {
-    return id;
+  public Long getIdDeveloper() {
+    return idDeveloper;
   }
 
-  public void setId(long id) {
-    this.id = id;
+  public void setId(Long id) {
+    this.idDeveloper = id;
   }
 
   public Role getRole() {

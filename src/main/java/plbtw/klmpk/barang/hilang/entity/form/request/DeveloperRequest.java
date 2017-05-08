@@ -13,28 +13,28 @@ import plbtw.klmpk.barang.hilang.entity.Role;
  */
 public class DeveloperRequest {
     
-  private long id;
-  private long idrole;
+  private Long idDeveloper;
+  private Long idRole;
   private String secretKey;
   private String token;
   private String email;
   private String password;
 
   
-   public long getIdDeveloper() {
-    return id;
+   public Long getIdDeveloper() {
+    return idDeveloper;
   }
 
-  public void setId(long idDev) {
-    this.id = idDev;
+  public void setId(Long idDeveloper) {
+    this.idDeveloper = idDeveloper;
   }
   
-  public long getIdrole() {
-    return idrole;
+  public Long getIdrole() {
+    return idRole;
   }
 
-  public void setIdrole(long idrole) {
-    this.idrole = idrole;
+  public void setIdrole(Long idrole) {
+    this.idRole = idrole;
   }
   
    public String getSecretKey() {

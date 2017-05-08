@@ -9,7 +9,7 @@ package plbtw.klmpk.barang.hilang.entity.form.request;
  * @author ALz
  */
 public class RoleRequest {
-  private long id;
+  private Long idRole;
   private String role;
 
   public RoleRequest() {}
@@ -22,12 +22,12 @@ public class RoleRequest {
     this.role = role;
   }
 
-  public long getId() {
-    return id;
+  public Long getId() {
+    return idRole;
   }
 
-  public void setId(long id) {
-    this.id = id;
+  public void setId(Long id) {
+    this.idRole = id;
   }
 
 
