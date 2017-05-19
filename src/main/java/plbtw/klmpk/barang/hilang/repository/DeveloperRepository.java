@@ -16,6 +16,7 @@ import plbtw.klmpk.barang.hilang.entity.Developer;
  */
 @Repository
 public interface DeveloperRepository extends JpaRepository<Developer, Long> {
+  Developer findOne(Long id);
   Developer findByToken(String token);
   Developer findByEmailAndPassword(String email,String password);
 }

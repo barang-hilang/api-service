@@ -22,4 +22,6 @@ public interface UserService {
   void updateUser(User userBaru);
 
   void deleteUser(long id);
+  
+  User authLoginUser(String email,String password);
 }

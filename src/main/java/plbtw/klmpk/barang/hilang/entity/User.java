@@ -31,6 +31,31 @@ public class User extends ResourceSupport {
 
   private String apiKey;
 
+    public User() {
+    }
+
+    public User(Long idUser, Developer dev, String email, String username, String password, String alamat, String noHp, String apiKey) {
+        this.idUser = idUser;
+        this.dev = dev;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.alamat = alamat;
+        this.noHp = noHp;
+        this.apiKey = apiKey;
+    }
+  
+  public User(Developer dev, String email, String username, String password, String alamat, String noHp, String apiKey) {
+        this.dev = dev;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.alamat = alamat;
+        this.noHp = noHp;
+        this.apiKey = apiKey;
+    }
+  
+
   public Developer dev() {
     return dev;
   }
@@ -55,11 +80,11 @@ public class User extends ResourceSupport {
     this.apiKey = apiKey;
   }
 
-  public long getIdUser() {
+  public Long getIdUser() {
     return idUser;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.idUser = id;
   }
 

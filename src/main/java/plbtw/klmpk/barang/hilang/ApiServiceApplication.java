@@ -6,8 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import plbtw.klmpk.barang.hilang.entity.Developer;
 import plbtw.klmpk.barang.hilang.entity.Role;
+import plbtw.klmpk.barang.hilang.entity.User;
 import plbtw.klmpk.barang.hilang.repository.DeveloperRepository;
 import plbtw.klmpk.barang.hilang.repository.RoleRepository;
+import plbtw.klmpk.barang.hilang.repository.UserRepository;
 
 @SpringBootApplication
 public class ApiServiceApplication {
@@ -18,7 +20,7 @@ public class ApiServiceApplication {
 
   @Bean
   public CommandLineRunner loadData(RoleRepository roleRepository,
-      DeveloperRepository developerRepository) {
+      DeveloperRepository developerRepository,UserRepository userRepository) {
     return (args) -> {
       roleRepository.save(new Role("Admin"));
       roleRepository.save(new Role("Developer"));
@@ -31,6 +33,7 @@ public class ApiServiceApplication {
       developerRepository.save(new Developer(roleRepository.findOne(2l), "tes3", "wakowakowakowa",
           "tesCoy", "wehehehe"));
 
+      userRepository.save(new User(developerRepository.findOne(1l),"aldi@gmail.com","aldi","1234","alamat","089660553886","wakowakowakowa"));
     };
   }
 }

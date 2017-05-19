@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import plbtw.klmpk.barang.hilang.entity.User;
 import plbtw.klmpk.barang.hilang.entity.form.request.ApiKeyRequest;
+import plbtw.klmpk.barang.hilang.entity.form.request.UserAuthRequest;
 import plbtw.klmpk.barang.hilang.entity.form.request.UserRequest;
 import plbtw.klmpk.barang.hilang.message.CustomResponseMessage;
 import plbtw.klmpk.barang.hilang.service.DeveloperService;
@@ -94,6 +95,30 @@ public class UserController {
     }
   }
 
+  @RequestMapping(value="/auth",method = RequestMethod.POST, produces="application/json")
+  public CustomResponseMessage authLogin(@RequestHeader String apiKey,@RequestBody UserAuthRequest userAuthRequest){
+      try{
+      if (!authApiKey(apiKey)) {
+        return new CustomResponseMessage(HttpStatus.FORBIDDEN,
+            "Please use your api key to authentication");
+      }
+      User user = userService.authLoginUser(userAuthRequest.getEmail(), userAuthRequest.getPassword());
+      List<User> listUser = new ArrayList<User>();
+      if(user==null)
+      {
+          return new CustomResponseMessage(HttpStatus.NOT_FOUND, "Login Failed", listUser);
+      }
+      listUser.add(user);
+      CustomResponseMessage result = new CustomResponseMessage();
+      result.setResult(listUser);
+      result.setHttpStatus(HttpStatus.ACCEPTED);
+      result.setMessage("Auth Success");
+      return result;
+      }catch(Exception ex){
+          return new CustomResponseMessage(HttpStatus.BAD_REQUEST,"Please use your api key to authentication");
+      }
+  }
+  
   @RequestMapping(method = RequestMethod.POST, produces = "application/json")
   public CustomResponseMessage addUser(@RequestHeader String apiKey,
       @RequestBody UserRequest userRequest) {

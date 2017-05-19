@@ -50,4 +50,9 @@ public class UserServiceImpl implements UserService {
     userRepository.delete(id);
   }
 
+    @Override
+    public User authLoginUser(String email, String password) {
+        return userRepository.getUserByEmailAndPassword(email, password);
+    }
+
 }
