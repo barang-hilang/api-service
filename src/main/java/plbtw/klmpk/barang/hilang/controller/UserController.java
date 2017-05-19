@@ -41,8 +41,8 @@ public class UserController {
   DeveloperService developerService;
 
   private boolean authApiKey(String token) {
-    if (developerService.getDeveloperByApiKey(token) == null)
-      return false;
+    if (developerService.getDeveloperByApiKey(token) == null || token.equalsIgnoreCase("") || token==null)
+        return false;
     return true;
   }
   

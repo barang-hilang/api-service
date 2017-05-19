@@ -47,6 +47,7 @@ public class LogController {
       log.setId(logRequest.getIdLog());
       log.setDev(developerService.getDeveloper(logRequest.getIdDev()));
       log.setTime_request(logRequest.getTime_request());
+      log.setStatus("");
 
       return new CustomResponseMessage(HttpStatus.CREATED, "Add Log berhasil");
     } catch (Exception ex) {

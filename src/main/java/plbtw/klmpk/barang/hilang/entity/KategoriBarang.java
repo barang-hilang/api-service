@@ -25,6 +25,21 @@ public class KategoriBarang extends ResourceSupport {
 
   private String jenis;
 
+
+    public KategoriBarang(Long id, String jenis) {
+        this.id = id;
+        this.jenis = jenis;
+    }
+    
+  public KategoriBarang(String jenis) {
+      this.jenis=jenis;
+  }
+
+    public KategoriBarang() {
+    }
+  
+  
+
   public long getIdKategoriBarang() {
     return id;
   }

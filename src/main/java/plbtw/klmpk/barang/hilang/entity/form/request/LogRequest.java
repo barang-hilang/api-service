@@ -16,6 +16,7 @@ public class LogRequest {
     private long idLog;
     private long idDev;
     private Date time_request;
+    private String status;
     
       public long getIdLog() {
     return idLog;
@@ -40,4 +41,18 @@ public class LogRequest {
   public void setTime_request(Date time_request) {
     this.time_request = time_request;
   }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

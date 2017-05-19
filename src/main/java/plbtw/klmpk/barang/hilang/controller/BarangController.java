@@ -5,12 +5,14 @@
 package plbtw.klmpk.barang.hilang.controller;
 
 import java.util.Collection;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +22,7 @@ import plbtw.klmpk.barang.hilang.message.CustomResponseMessage;
 import plbtw.klmpk.barang.hilang.service.BarangService;
 import plbtw.klmpk.barang.hilang.service.KategoriBarangService;
 import plbtw.klmpk.barang.hilang.service.UserService;
+import plbtw.klmpk.barang.hilang.service.DeveloperService;
 
 /**
  *
@@ -34,10 +37,38 @@ public class BarangController {
   private KategoriBarangService kategoriBarangService;
   @Autowired
   private UserService userService;
+  @Autowired
+  private DeveloperService developerService;
+  
+  private boolean authApiKey(String token) {
+    if (developerService.getDeveloperByApiKey(token) == null || token.equalsIgnoreCase("") || token==null)
+        return false;
+    return true;
+  }
 
   @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-  public Collection<Barang> getAllBarang() {
-    return barangService.getAllBarang();
+  public CustomResponseMessage /*Collection<Barang>*/ getAllBarang(@RequestHeader String apiKey) {
+      try {
+      
+        if (!authApiKey(apiKey)) {
+          return new CustomResponseMessage(HttpStatus.FORBIDDEN,
+              "Please use your api key to authentication");
+        }
+        List<Barang> allBarang=(List<Barang>) barangService.getAllBarang();
+        for(Barang barang : allBarang){
+            Link selfLink=linkTo(BarangController.class).withSelfRel();
+            barang.add(selfLink);
+        }
+        CustomResponseMessage result=new CustomResponseMessage();
+        result.add(linkTo(BarangController.class).withSelfRel());
+        result.setHttpStatus(HttpStatus.ACCEPTED);
+        result.setMessage("Success");
+        result.setResult(allBarang);
+        return result;
+    } catch (Exception ex) {
+      return new CustomResponseMessage(HttpStatus.FORBIDDEN,
+          "Please use your api key to authentication");
+    }
   }
 
   @RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")

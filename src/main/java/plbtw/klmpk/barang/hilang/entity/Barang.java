@@ -35,6 +35,31 @@ public class Barang extends ResourceSupport {
   private int jumlah;
   private String url_image;
 
+    public Barang(Long id, KategoriBarang kategoriBarang, User user, String nama, String status, int jumlah, String url_image) {
+        this.id = id;
+        this.kategoriBarang = kategoriBarang;
+        this.user = user;
+        this.nama = nama;
+        this.status = status;
+        this.jumlah = jumlah;
+        this.url_image = url_image;
+    }
+    
+    public Barang(KategoriBarang kategoriBarang, User user, String nama, String status, int jumlah, String url_image) {
+        this.id = id;
+        this.kategoriBarang = kategoriBarang;
+        this.user = user;
+        this.nama = nama;
+        this.status = status;
+        this.jumlah = jumlah;
+        this.url_image = url_image;
+    }
+
+    public Barang() {
+    }
+    
+    
+
   public long getIdBarang() {
     return id;
   }

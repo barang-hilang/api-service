@@ -15,5 +15,5 @@ import plbtw.klmpk.barang.hilang.entity.KategoriBarang;
  */
 @Repository
 public interface KategoriBarangRepository extends JpaRepository<KategoriBarang, Long> {
-
+    KategoriBarang findOne(Long id);
 }

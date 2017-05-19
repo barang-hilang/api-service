@@ -14,5 +14,6 @@ import plbtw.klmpk.barang.hilang.entity.User;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    User findOne(Long id);
     User getUserByEmailAndPassword(String email,String password);
 }

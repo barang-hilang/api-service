@@ -17,5 +17,5 @@ import plbtw.klmpk.barang.hilang.entity.Barang;
 @Repository
 // @PreAuthorize("hasRole('ROLE_USER')")
 public interface BarangRepository extends JpaRepository<Barang, Long> {
-
+    
 }

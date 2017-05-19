@@ -7,7 +7,11 @@ import org.springframework.context.annotation.Bean;
 import plbtw.klmpk.barang.hilang.entity.Developer;
 import plbtw.klmpk.barang.hilang.entity.Role;
 import plbtw.klmpk.barang.hilang.entity.User;
+import plbtw.klmpk.barang.hilang.entity.KategoriBarang;
+import plbtw.klmpk.barang.hilang.entity.Barang;
+import plbtw.klmpk.barang.hilang.repository.BarangRepository;
 import plbtw.klmpk.barang.hilang.repository.DeveloperRepository;
+import plbtw.klmpk.barang.hilang.repository.KategoriBarangRepository;
 import plbtw.klmpk.barang.hilang.repository.RoleRepository;
 import plbtw.klmpk.barang.hilang.repository.UserRepository;
 
@@ -20,7 +24,7 @@ public class ApiServiceApplication {
 
   @Bean
   public CommandLineRunner loadData(RoleRepository roleRepository,
-      DeveloperRepository developerRepository,UserRepository userRepository) {
+      DeveloperRepository developerRepository,UserRepository userRepository, KategoriBarangRepository kategoriBarangRepository, BarangRepository barangRepository) {
     return (args) -> {
       roleRepository.save(new Role("Admin"));
       roleRepository.save(new Role("Developer"));
@@ -28,12 +32,16 @@ public class ApiServiceApplication {
 
       developerRepository.save(new Developer(roleRepository.findOne(2l), "tes1", "wakowakowakowa",
           "tesCoy", "wehehehe"));
-      developerRepository.save(new Developer(roleRepository.findOne(2l), "tes2", "wakowakowakowa",
+      developerRepository.save(new Developer(roleRepository.findOne(2l), "tes2", "wakowakowakowa2",
           "tesCoy", "wehehehe"));
-      developerRepository.save(new Developer(roleRepository.findOne(2l), "tes3", "wakowakowakowa",
+      developerRepository.save(new Developer(roleRepository.findOne(2l), "tes3", "wakowakowakowa3",
           "tesCoy", "wehehehe"));
 
       userRepository.save(new User(developerRepository.findOne(1l),"aldi@gmail.com","aldi","1234","alamat","089660553886","wakowakowakowa"));
+      
+      kategoriBarangRepository.save(new KategoriBarang("Elektronik"));
+      
+      barangRepository.save(new Barang(kategoriBarangRepository.findOne(1l),userRepository.findOne(1l),"Iphone 7","loss",1,"https://cnet2.cbsistatic.com/img/CXq-MuOMDvpuhYOfgpmsHWbYdxg=/830x467/2016/09/12/9a3ba000-7c14-4f55-b685-92ffa90f353c/septus-02.jpg"));
     };
   }
 }

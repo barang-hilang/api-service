@@ -29,6 +29,8 @@ public class Log extends ResourceSupport {
   private Developer dev;
 
   private Date time_request;
+  
+  private String status;
 
 
   public long getIdLog() {
@@ -54,4 +56,18 @@ public class Log extends ResourceSupport {
   public void setTime_request(Date time_request) {
     this.time_request = time_request;
   }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
