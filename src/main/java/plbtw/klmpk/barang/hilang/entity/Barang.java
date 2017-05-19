@@ -46,7 +46,6 @@ public class Barang extends ResourceSupport {
     }
     
     public Barang(KategoriBarang kategoriBarang, User user, String nama, String status, int jumlah, String url_image) {
-        this.id = id;
         this.kategoriBarang = kategoriBarang;
         this.user = user;
         this.nama = nama;

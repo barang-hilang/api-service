@@ -4,6 +4,7 @@
  */
 package plbtw.klmpk.barang.hilang.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class BarangController {
   private DeveloperService developerService;
   
   private boolean authApiKey(String token) {
-    if (developerService.getDeveloperByApiKey(token) == null || token.equalsIgnoreCase("") || token==null)
+    if (developerService.getDeveloperByApiKey(token) == null)
         return false;
     return true;
   }
@@ -61,36 +62,63 @@ public class BarangController {
         }
         CustomResponseMessage result=new CustomResponseMessage();
         result.add(linkTo(BarangController.class).withSelfRel());
-        result.setHttpStatus(HttpStatus.ACCEPTED);
+        result.setHttpStatus(HttpStatus.FOUND);
         result.setMessage("Success");
         result.setResult(allBarang);
         return result;
+    } catch (NullPointerException ex){
+      return new CustomResponseMessage(HttpStatus.NOT_FOUND,
+          "Data not found");
     } catch (Exception ex) {
       return new CustomResponseMessage(HttpStatus.FORBIDDEN,
-          "Please use your api key to authentication");
+          ex.getMessage());
     }
   }
 
   @RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")
-  public Barang findBarang(@PathVariable("id") long id) {
-    Barang barang = barangService.getBarang(id);
-    Link selfLink = linkTo(UserController.class).withSelfRel();
-    barang.add(selfLink);
-    return barang;
-  }
+  public CustomResponseMessage findBarang(@RequestHeader String apiKey,@PathVariable("id") long id) {
+    try {
+      if (!authApiKey(apiKey)) {
+        return new CustomResponseMessage(HttpStatus.FORBIDDEN,
+            "Please use your api key to authentication");
+      }
+      List<Barang> rsBarang=new ArrayList<>();
+      Barang barang = barangService.getBarang(id);
+      Link selfLink = linkTo(UserController.class).withSelfRel();
+      barang.add(selfLink);
+      rsBarang.add(barang);
+      CustomResponseMessage result=new CustomResponseMessage();
+      result.add(linkTo(BarangController.class).withSelfRel());
+      result.setHttpStatus(HttpStatus.FOUND);
+      result.setMessage("Success");
+      result.setResult(rsBarang);
+      return result;
+    } catch (NullPointerException ex){
+      return new CustomResponseMessage(HttpStatus.NOT_FOUND,
+          "Data not found");
+    } catch (Exception ex) {
+      return new CustomResponseMessage(HttpStatus.BAD_REQUEST,
+          ex.getMessage());
+    }
+}
 
   @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-  public CustomResponseMessage addBarang(@RequestBody BarangRequest barangRequest) {
+  public CustomResponseMessage addBarang(@RequestHeader String apiKey,@RequestBody BarangRequest barangRequest) {
     try {
+      if (!authApiKey(apiKey)) {
+        return new CustomResponseMessage(HttpStatus.FORBIDDEN,
+            "Please use your api key to authentication");
+      }
       Barang barang = new Barang();
       barang.setJumlah(barangRequest.getJumlahBarang());
       barang.setKategoriBarang(
-          kategoriBarangService.getKategoriBarang(barangRequest.getIdKategoriBarang()));
+      kategoriBarangService.getKategoriBarang(barangRequest.getIdKategoriBarang()));
       barang.setNama(barangRequest.getNama());
       barang.setStatus(barangRequest.getStatus());
       barang.setUrl_image(barangRequest.getUrl_image());
       barang.setUser(userService.getUser(barangRequest.getIdUserPemilik()));
-      return new CustomResponseMessage(HttpStatus.CREATED, "Add Barang berhasil");
+      barangService.addBarang(barang);
+      return new CustomResponseMessage(HttpStatus.CREATED, "Insert Success");
     } catch (Exception ex) {
       return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
@@ -98,8 +126,13 @@ public class BarangController {
   }
 
   @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
-  public CustomResponseMessage updateBarang(@RequestBody BarangRequest barangRequest) {
+  public CustomResponseMessage updateBarang(@RequestHeader String apiKey,@RequestBody BarangRequest barangRequest) {
     try {
+      if (!authApiKey(apiKey)) {
+        return new CustomResponseMessage(HttpStatus.FORBIDDEN,
+            "Please use your api key to authentication");
+      }
+      
       Barang barang = barangService.getBarang(barangRequest.getId());
       barang.setJumlah(barangRequest.getJumlahBarang());
       barang.setKategoriBarang(
@@ -110,16 +143,27 @@ public class BarangController {
       barang.setUser(userService.getUser(barangRequest.getIdUserPemilik()));
       barangService.updateBarang(barang);
       return new CustomResponseMessage(HttpStatus.CREATED, "Update Barang Successfull");
+    } catch (NullPointerException ex){
+      return new CustomResponseMessage(HttpStatus.NOT_FOUND,
+          "Data not found");
     } catch (Exception ex) {
       return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
   }
 
   @RequestMapping(method = RequestMethod.DELETE, produces = "application/json")
-  public CustomResponseMessage deleteBarang(@RequestBody BarangRequest barangRequest) {
+  public CustomResponseMessage deleteBarang(@RequestHeader String apiKey,@RequestBody BarangRequest barangRequest) {
     try {
+      if (!authApiKey(apiKey)) {
+        return new CustomResponseMessage(HttpStatus.FORBIDDEN,
+            "Please use your api key to authentication");
+      }
+      
       barangService.deleteBarang(barangRequest.getId());
       return new CustomResponseMessage(HttpStatus.CREATED, "Delete Barang successfull");
+    } catch (NullPointerException ex){
+      return new CustomResponseMessage(HttpStatus.NOT_FOUND,
+          "Data not found");
     } catch (Exception ex) {
       return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
     }
