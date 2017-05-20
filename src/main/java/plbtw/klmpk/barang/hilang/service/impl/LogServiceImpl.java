@@ -23,7 +23,7 @@ public class LogServiceImpl implements LogService {
   private LogRepository logRepository;
 
   @Override
-  public Log getLog(long id) {
+  public Log getLog(Long id) {
     return logRepository.findOne(id);
   }
 
@@ -36,4 +36,13 @@ public class LogServiceImpl implements LogService {
   public void deleteLog(long id) {
     logRepository.delete(id);
   }
+
+    @Override
+    public Long countByApiKey(String apiKey) {
+        return logRepository.countByApiKey(apiKey);
+    }
+
+    
+
+  
 }

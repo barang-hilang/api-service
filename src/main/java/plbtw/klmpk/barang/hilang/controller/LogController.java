@@ -10,6 +10,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +46,6 @@ public class LogController {
     try {
       Log log = new Log();
       log.setId(logRequest.getIdLog());
-      log.setDev(developerService.getDeveloper(logRequest.getIdDev()));
       log.setTime_request(logRequest.getTime_request());
       log.setStatus("");
 
@@ -55,8 +55,6 @@ public class LogController {
     }
 
   }
-
-
 
   @RequestMapping(method = RequestMethod.DELETE, produces = "application/json")
   public CustomResponseMessage deleteLog(@RequestBody LogRequest logRequest) {

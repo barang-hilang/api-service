@@ -24,4 +24,6 @@ public interface UserService {
   void deleteUser(long id);
   
   User authLoginUser(String email,String password);
+  
+  Long countUserByDeveloper(Long id);
 }

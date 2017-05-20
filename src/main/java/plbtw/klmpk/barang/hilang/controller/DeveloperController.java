@@ -26,6 +26,8 @@ import plbtw.klmpk.barang.hilang.entity.form.request.LoginAuthRequest;
 import plbtw.klmpk.barang.hilang.message.CustomResponseMessage;
 import plbtw.klmpk.barang.hilang.service.RoleService;
 import plbtw.klmpk.barang.hilang.service.DeveloperService;
+import plbtw.klmpk.barang.hilang.service.LogService;
+import plbtw.klmpk.barang.hilang.service.UserService;
 
 /**
  *
@@ -41,6 +43,12 @@ public class DeveloperController {
 
     @Autowired
     RoleService roleService;
+    
+    @Autowired
+    LogService logService;
+    
+    @Autowired
+    UserService userService;
 
     //Login
     @CrossOrigin(origins = "*")
@@ -151,5 +159,21 @@ public class DeveloperController {
         } catch (Exception ex) {
             return new CustomResponseMessage(HttpStatus.BAD_REQUEST, ex.toString());
         }
+    }
+    
+    @RequestMapping(method = RequestMethod.GET,value = "/get/request",produces = "application/json")
+    public CustomResponseMessage getTotalRequest(@RequestHeader String apiKey){
+        long totalHit = logService.countByApiKey(apiKey);
+        List<Long> result = new ArrayList<>();
+        result.add(totalHit);
+        return new CustomResponseMessage(HttpStatus.OK, "Success", result);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET,value = "/get/user",produces = "application/json")
+    public CustomResponseMessage getTotalUser(@RequestHeader String apiKey){
+        Long idTemp = userService.countUserByDeveloper(developerService.getDeveloperByApiKey(apiKey).getIdDeveloper());
+        List<Long> result = new ArrayList<>();
+        result.add(idTemp);
+        return new CustomResponseMessage(HttpStatus.OK, "Success", result);
     }
 }

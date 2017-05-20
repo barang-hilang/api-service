@@ -6,6 +6,7 @@
 package plbtw.klmpk.barang.hilang.repository;
 import java.io.Serializable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import plbtw.klmpk.barang.hilang.entity.Log;
 /**
@@ -14,4 +15,7 @@ import plbtw.klmpk.barang.hilang.entity.Log;
  */
 @Repository
 public interface LogRepository extends JpaRepository<Log, Long> {  
+//    @Query(countQuery = "select count(id) from Log where idDeveloper = ?1",nativeQuery = true)
+//    int getTotalRequestDeveloper(Long idDev);
+    Long countByApiKey(String apiKey);
 }

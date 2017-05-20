@@ -55,4 +55,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.getUserByEmailAndPassword(email, password);
     }
 
+    @Override
+    public Long countUserByDeveloper(Long id) {
+        return userRepository.countByDev(id);
+    }
+
 }

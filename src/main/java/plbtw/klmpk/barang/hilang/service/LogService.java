@@ -11,9 +11,11 @@ import plbtw.klmpk.barang.hilang.entity.Log;
  * @author CMDDJ
  */
 public interface LogService {
-  Log getLog(long id);
+  Log getLog(Long id);
 
   void addLog(Log log);
 
+  Long countByApiKey(String apiKey);
+  
   void deleteLog(long id);
 }

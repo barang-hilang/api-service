@@ -23,30 +23,28 @@ import org.springframework.hateoas.ResourceSupport;
 public class Log extends ResourceSupport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
-  @ManyToOne(cascade = CascadeType.MERGE)
-  private Developer dev;
+  private Long idLog;
 
   private Date time_request;
   
   private String status;
 
+  private String apiKey;
 
-  public long getIdLog() {
-    return id;
+  public String getApiKey() {
+      return apiKey;
   }
 
-  public void setId(long id) {
-    this.id = id;
+  public void setApiKey(String apiKey) {
+      this.apiKey = apiKey;
+  }
+  
+  public Long getIdLog() {
+    return idLog;
   }
 
-  public Developer dev() {
-    return dev;
-  }
-
-  public void setDev(Developer dev) {
-    this.dev = dev;
+  public void setId(Long id) {
+    this.idLog = id;
   }
 
   public Date getTime_request() {
