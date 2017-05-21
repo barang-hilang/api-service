@@ -35,6 +35,7 @@ import plbtw.klmpk.barang.hilang.service.impl.DependencyFactory;
 @RequestMapping(value = "/api/v1/pelaporan")
 public class PelaporanController {
 
+    private final int RATE_LIMIT = 10;
     @Autowired
     PelaporanService pelaporanService;
     @Autowired
@@ -53,6 +54,10 @@ public class PelaporanController {
         return true;
     }
 
+    private boolean checkRateLimit(int rateLimit, String apiKey) {
+        return (logService.rateLimit(apiKey) >= rateLimit) ? true : false;
+    }
+
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public CustomResponseMessage getAllPelaporan(@RequestHeader String apiKey) {
 
@@ -61,12 +66,17 @@ public class PelaporanController {
                     "Please use your api key to authentication");
         }
 
+        if (checkRateLimit(RATE_LIMIT, apiKey)) {
+            return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                    "Please wait a while, you have reached your rate limit");
+        }
+
         LogRequest temp = DependencyFactory.createLog(apiKey, "Get");
 
         Log log = new Log();
         log.setApiKey(temp.getApiKey());
         log.setStatus(temp.getStatus());
-        log.setTime_request(temp.getTime_request());
+        log.setTimeRequest(temp.getTime_request());
         logService.addLog(log);
 
         CustomResponseMessage result = new CustomResponseMessage();
@@ -85,12 +95,17 @@ public class PelaporanController {
                     "Please use your api key to authentication");
         }
 
+        if (checkRateLimit(RATE_LIMIT, apiKey)) {
+            return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                    "Please wait a while, you have reached your rate limit");
+        }
+
         LogRequest temp = DependencyFactory.createLog(apiKey, "Get");
 
         Log log = new Log();
         log.setApiKey(temp.getApiKey());
         log.setStatus(temp.getStatus());
-        log.setTime_request(temp.getTime_request());
+        log.setTimeRequest(temp.getTime_request());
         logService.addLog(log);
 
         Pelaporan pelaporan = pelaporanService.getPelaporan(id);
@@ -117,12 +132,17 @@ public class PelaporanController {
                         "Please use your api key to authentication");
             }
 
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
+            }
+
             LogRequest temp = DependencyFactory.createLog(apiKey, "Post");
 
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
 
             Pelaporan pelaporan = new Pelaporan();
@@ -144,12 +164,18 @@ public class PelaporanController {
                 return new CustomResponseMessage(HttpStatus.FORBIDDEN,
                         "Please use your api key to authentication");
             }
+
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
+            }
+
             LogRequest temp = DependencyFactory.createLog(apiKey, "Put");
 
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
 
             Pelaporan pelaporan = pelaporanService.getPelaporan(pelaporanRequest.getIdPelaporan());
@@ -174,12 +200,18 @@ public class PelaporanController {
                 return new CustomResponseMessage(HttpStatus.FORBIDDEN,
                         "Please use your api key to authentication");
             }
+
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
+            }
+
             LogRequest temp = DependencyFactory.createLog(apiKey, "Get");
 
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
             pelaporanService.deletePelaporan(pelaporanRequest.getIdPelaporan());
             return new CustomResponseMessage(HttpStatus.CREATED, "Pelaporan berhasil dihapus");

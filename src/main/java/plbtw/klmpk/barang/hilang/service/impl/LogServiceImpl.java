@@ -5,7 +5,9 @@
 package plbtw.klmpk.barang.hilang.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +44,19 @@ public class LogServiceImpl implements LogService {
         return logRepository.countByApiKey(apiKey);
     }
 
-    
+    @Override
+    public Long rateLimit(String apiKey) {
+        Calendar dateNowCalendar = Calendar.getInstance();
+        Date dateNow = dateNowCalendar.getTime();
+        Calendar dateLastOneMinute = Calendar.getInstance();
+        dateLastOneMinute.add(Calendar.MINUTE,-1);
+        Date dateBefore = dateLastOneMinute.getTime();
+        return logRepository.countByApiKeyAndTimeRequestBetween(apiKey,dateBefore,dateNow);
+    }
 
-  
+    @Override
+    public List<Log> getAll() {
+        return logRepository.findAll();
+    }
+
 }

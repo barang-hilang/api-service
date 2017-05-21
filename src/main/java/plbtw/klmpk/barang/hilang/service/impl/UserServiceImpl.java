@@ -60,4 +60,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.countByDev(id);
     }
 
+    @Override
+    public User checkUserExist(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 }

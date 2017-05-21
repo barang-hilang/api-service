@@ -4,6 +4,7 @@
  */
 package plbtw.klmpk.barang.hilang.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -30,9 +31,17 @@ import plbtw.klmpk.barang.hilang.service.LogService;
 public class LogController {
   @Autowired
   private LogService logService;
-  @Autowired
-  private DeveloperService developerService;
 
+  @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+  public List<Log> getAllLog() {
+    return logService.getAll();
+  }
+  
+  @RequestMapping(value = "/check/rateLimit",method = RequestMethod.GET,produces = "application/json")
+  public Long checkTotalReq(@RequestHeader String apiKey){
+      return logService.rateLimit(apiKey);
+  }
+  
   @RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")
   public Log findLog(@PathVariable("id") long id) {
     Log log = logService.getLog(id);
@@ -46,7 +55,7 @@ public class LogController {
     try {
       Log log = new Log();
       log.setId(logRequest.getIdLog());
-      log.setTime_request(logRequest.getTime_request());
+      log.setTimeRequest(logRequest.getTime_request());
       log.setStatus("");
 
       return new CustomResponseMessage(HttpStatus.CREATED, "Add Log berhasil");

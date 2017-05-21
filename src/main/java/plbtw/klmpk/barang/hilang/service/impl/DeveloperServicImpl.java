@@ -31,14 +31,14 @@ public class DeveloperServicImpl implements DeveloperService {
         result = devRepository.findAll();
         return result;
     }
-
+    
     @Override
     public void addDeveloper(Developer dev) {
         devRepository.save(dev);
     }
 
     @Override
-    public Developer getDeveloper(long id) {
+    public Developer getDeveloper(Long id) {
         return devRepository.findOne(id);
     }
 
@@ -60,5 +60,10 @@ public class DeveloperServicImpl implements DeveloperService {
     @Override
     public Developer getDeveloperByEmailAndPassword(String email, String password) {
         return devRepository.findByEmailAndPassword(email,password);
+    }
+
+    @Override
+    public Developer checkDeveloperExist(String email) {
+        return devRepository.findByEmail(email);
     }
 }

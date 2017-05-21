@@ -40,12 +40,17 @@ import plbtw.klmpk.barang.hilang.service.impl.DependencyFactory;
 @RequestMapping(value = "/api/v1/users")
 public class UserController {
 
+    private final int RATE_LIMIT = 10;
     @Autowired
     UserService userService;
     @Autowired
     DeveloperService developerService;
     @Autowired
     LogService logService;
+
+    private boolean checkRateLimit(int rateLimit, String apiKey) {
+        return (logService.rateLimit(apiKey) >= rateLimit) ? true : false;
+    }
 
     private boolean authApiKey(String token) {
         if (developerService.getDeveloperByApiKey(token) == null || token.equalsIgnoreCase("") || token == null) {
@@ -61,12 +66,18 @@ public class UserController {
                 return new CustomResponseMessage(HttpStatus.FORBIDDEN,
                         "Please use your api key to authentication");
             }
+
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
+            }
+
             LogRequest temp = DependencyFactory.createLog(apiKey, "Get");
 
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
 
             List<User> allUsers = (List<User>) userService.getAllUsers();
@@ -89,9 +100,15 @@ public class UserController {
     @RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")
     public CustomResponseMessage getUser(@RequestHeader String apiKey, @PathVariable("id") long id) {
         try {
+
             if (!authApiKey(apiKey)) {
                 return new CustomResponseMessage(HttpStatus.FORBIDDEN,
                         "Please use your api key to authentication");
+            }
+
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
             }
 
             LogRequest temp = DependencyFactory.createLog(apiKey, "Get");
@@ -99,7 +116,7 @@ public class UserController {
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
 
             User user = userService.getUser(id);
@@ -127,12 +144,16 @@ public class UserController {
                         "Please use your api key to authentication");
             }
 
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
+            }
             LogRequest temp = DependencyFactory.createLog(apiKey, "Post");
 
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
 
             User user = userService.authLoginUser(userAuthRequest.getEmail(), userAuthRequest.getPassword());
@@ -159,13 +180,23 @@ public class UserController {
                 return new CustomResponseMessage(HttpStatus.FORBIDDEN,
                         "Please use your api key to authentication");
             }
+
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
+            }
+
             LogRequest temp = DependencyFactory.createLog(apiKey, "Post");
 
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
+
+            if (userService.checkUserExist(userRequest.getEmail()) != null) {
+                return new CustomResponseMessage(HttpStatus.METHOD_NOT_ALLOWED, "Email Already Used");
+            }
 
             User user = new User();
             user.setUsername(userRequest.getUsername());
@@ -188,12 +219,18 @@ public class UserController {
                 return new CustomResponseMessage(HttpStatus.FORBIDDEN,
                         "Please use your api key to authentication");
             }
+
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
+            }
+
             LogRequest temp = DependencyFactory.createLog(apiKey, "Put");
 
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
 
             User userUpdate = userService.getUser(userRequest.getId());
@@ -218,11 +255,15 @@ public class UserController {
                         "Please use your api key to authentication");
             }
             LogRequest temp = DependencyFactory.createLog(apiKey, "Delete");
-
+            
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
+            }
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
 
             userService.deleteUser(userRequest.getId());

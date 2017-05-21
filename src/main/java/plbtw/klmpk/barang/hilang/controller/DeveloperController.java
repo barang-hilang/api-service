@@ -117,6 +117,11 @@ public class DeveloperController {
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public CustomResponseMessage addDeveloper(@RequestBody DeveloperRequest developerRequest) {
         try {
+            
+            if(developerService.checkDeveloperExist(developerRequest.getEmail())==null){
+                return new CustomResponseMessage(HttpStatus.METHOD_NOT_ALLOWED,"Email Already Used");
+            }
+            
             Developer developer = new Developer();
             developer.setRole(roleService.getRole(developerRequest.getIdrole()));
                 SecureRandom random = new SecureRandom();

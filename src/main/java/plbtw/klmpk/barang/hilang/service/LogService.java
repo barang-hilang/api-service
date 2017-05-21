@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package plbtw.klmpk.barang.hilang.service;
+import java.util.Date;
+import java.util.List;
 import plbtw.klmpk.barang.hilang.entity.Log;
 
 /**
@@ -11,7 +13,11 @@ import plbtw.klmpk.barang.hilang.entity.Log;
  * @author CMDDJ
  */
 public interface LogService {
+  List<Log> getAll();  
+    
   Log getLog(Long id);
+  
+  Long rateLimit(String apiKey);
 
   void addLog(Log log);
 

@@ -15,9 +15,11 @@ import plbtw.klmpk.barang.hilang.entity.Developer;
 public interface DeveloperService {
   Collection<Developer> getAllDevelopers();
 
-  Developer getDeveloper(long id);
+  Developer getDeveloper(Long id);
 
   Developer getDeveloperByApiKey(String token);
+  
+  Developer checkDeveloperExist(String email);
   
   Developer getDeveloperByEmailAndPassword(String email,String password);
 

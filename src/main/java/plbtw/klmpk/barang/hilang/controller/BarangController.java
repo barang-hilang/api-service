@@ -39,6 +39,7 @@ import plbtw.klmpk.barang.hilang.service.impl.DependencyFactory;
 @RequestMapping(value = "/api/v1/barang")
 public class BarangController {
 
+    private final int RATE_LIMIT = 10;
     @Autowired
     private BarangService barangService;
     @Autowired
@@ -57,6 +58,10 @@ public class BarangController {
         return true;
     }
 
+    private boolean checkRateLimit(int rateLimit, String apiKey) {
+        return (logService.rateLimit(apiKey) >= rateLimit) ? true : false;
+    }
+
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public CustomResponseMessage /*Collection<Barang>*/ getAllBarang(@RequestHeader String apiKey) {
         try {
@@ -67,10 +72,14 @@ public class BarangController {
             }
             LogRequest temp = DependencyFactory.createLog(apiKey, "Get");
 
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
+            }
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
 
             List<Barang> allBarang = (List<Barang>) barangService.getAllBarang();
@@ -102,10 +111,15 @@ public class BarangController {
             }
             LogRequest temp = DependencyFactory.createLog(apiKey, "Get");
 
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
+            }
+
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
 
             List<Barang> rsBarang = new ArrayList<>();
@@ -135,12 +149,18 @@ public class BarangController {
                 return new CustomResponseMessage(HttpStatus.FORBIDDEN,
                         "Please use your api key to authentication");
             }
+
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
+            }
+
             LogRequest temp = DependencyFactory.createLog(apiKey, "Post");
 
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
 
             Barang barang = new Barang();
@@ -167,12 +187,17 @@ public class BarangController {
                         "Please use your api key to authentication");
             }
 
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
+            }
+
             LogRequest temp = DependencyFactory.createLog(apiKey, "Put");
 
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
 
             Barang barang = barangService.getBarang(barangRequest.getId());
@@ -200,12 +225,18 @@ public class BarangController {
                 return new CustomResponseMessage(HttpStatus.FORBIDDEN,
                         "Please use your api key to authentication");
             }
+
+            if (checkRateLimit(RATE_LIMIT, apiKey)) {
+                return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                        "Please wait a while, you have reached your rate limit");
+            }
+
             LogRequest temp = DependencyFactory.createLog(apiKey, "Delete");
 
             Log log = new Log();
             log.setApiKey(temp.getApiKey());
             log.setStatus(temp.getStatus());
-            log.setTime_request(temp.getTime_request());
+            log.setTimeRequest(temp.getTime_request());
             logService.addLog(log);
             barangService.deleteBarang(barangRequest.getId());
             return new CustomResponseMessage(HttpStatus.CREATED, "Delete Barang successfull");

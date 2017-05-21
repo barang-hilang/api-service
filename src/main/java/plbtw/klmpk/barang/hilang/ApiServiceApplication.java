@@ -40,6 +40,10 @@ public class ApiServiceApplication {
       userRepository.save(new User(developerRepository.findOne(1l),"aldi@gmail.com","aldi","1234","alamat","089660553886","wakowakowakowa"));
       
       kategoriBarangRepository.save(new KategoriBarang("Elektronik"));
+      kategoriBarangRepository.save(new KategoriBarang("Keperluan Pribadi"));
+      kategoriBarangRepository.save(new KategoriBarang("Uang"));
+      kategoriBarangRepository.save(new KategoriBarang("Surat"));
+      kategoriBarangRepository.save(new KategoriBarang("Kendaraan"));
       
       barangRepository.save(new Barang(kategoriBarangRepository.findOne(1l),userRepository.findOne(1l),"Iphone 7","loss",1,"https://cnet2.cbsistatic.com/img/CXq-MuOMDvpuhYOfgpmsHWbYdxg=/830x467/2016/09/12/9a3ba000-7c14-4f55-b685-92ffa90f353c/septus-02.jpg"));
     };

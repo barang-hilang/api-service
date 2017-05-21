@@ -15,6 +15,8 @@ import plbtw.klmpk.barang.hilang.entity.User;
 public interface UserService {
   Collection getAllUsers();
 
+  User checkUserExist(String email);
+  
   User getUser(long id);
 
   void addUser(User user);

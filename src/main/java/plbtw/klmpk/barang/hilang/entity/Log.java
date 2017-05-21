@@ -25,9 +25,17 @@ public class Log extends ResourceSupport {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long idLog;
 
-  private Date time_request;
+  private Date timeRequest;
   
   private String status;
+
+    public Date getTimeRequest() {
+        return timeRequest;
+    }
+
+    public void setTimeRequest(Date timeRequest) {
+        this.timeRequest = timeRequest;
+    }
 
   private String apiKey;
 
@@ -45,14 +53,6 @@ public class Log extends ResourceSupport {
 
   public void setId(Long id) {
     this.idLog = id;
-  }
-
-  public Date getTime_request() {
-    return time_request;
-  }
-
-  public void setTime_request(Date time_request) {
-    this.time_request = time_request;
   }
 
     /**
