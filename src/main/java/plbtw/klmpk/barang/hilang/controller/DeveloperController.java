@@ -106,7 +106,7 @@ public class DeveloperController {
         CustomResponseMessage result = new CustomResponseMessage();
         result.add(linkTo(DeveloperController.class).withSelfRel());
         result.setHttpStatus(HttpStatus.OK);
-        result.setMessage("Success");
+        result.setMessage("Active");
         List<Object> tempCollectionDev = new ArrayList<>();
         tempCollectionDev.add(developer);
         tempCollectionDev.add(totalHit);
@@ -118,7 +118,7 @@ public class DeveloperController {
     public CustomResponseMessage addDeveloper(@RequestBody DeveloperRequest developerRequest) {
         try {
             
-            if(developerService.checkDeveloperExist(developerRequest.getEmail())==null){
+            if(developerService.checkDeveloperExist(developerRequest.getEmail())!=null){
                 return new CustomResponseMessage(HttpStatus.METHOD_NOT_ALLOWED,"Email Already Used");
             }
             

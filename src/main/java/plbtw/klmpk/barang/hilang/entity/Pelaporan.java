@@ -4,7 +4,7 @@
  */
 package plbtw.klmpk.barang.hilang.entity;
 
-import java.sql.Date;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,97 +21,107 @@ import org.springframework.hateoas.ResourceSupport;
 @Entity
 @Table(name = "barang_hilang_pelaporan")
 public class Pelaporan extends ResourceSupport {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
 
-  @ManyToOne(cascade = CascadeType.MERGE)
-  private Barang barang;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @ManyToOne(cascade = CascadeType.MERGE)
-  private User pelapor;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Barang barang;
 
-  @ManyToOne(cascade = CascadeType.MERGE)
-  private User penemu;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private User pelapor;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private User penemu;
 
-  private String keterangan;
-  private String tempatHilang;
-  private Date tanggalHilang;
-  private String tempatDitemukan;
-  private Date tanggalDitemukan;
+    public Pelaporan() {
+    }
 
-  public User getPelapor() {
-    return pelapor;
-  }
+    public Pelaporan(Barang barang, User pelapor, String keterangan, String tempatHilang, Date tanggalHilang) {
+        this.barang = barang;
+        this.pelapor = pelapor;
+        this.keterangan = keterangan;
+        this.tempatHilang = tempatHilang;
+        this.tanggalHilang = tanggalHilang;
+    }
 
-  public void setPelapor(User pelapor) {
-    this.pelapor = pelapor;
-  }
+    private String keterangan;
+    private String tempatHilang;
+    private Date tanggalHilang;
+    private String tempatDitemukan;
+    private Date tanggalDitemukan;
 
-  public User getPenemu() {
-    return penemu;
-  }
+    public User getPelapor() {
+        return pelapor;
+    }
 
-  public void setPenemu(User penemu) {
-    this.penemu = penemu;
-  }
+    public void setPelapor(User pelapor) {
+        this.pelapor = pelapor;
+    }
 
-  public String getTempatDitemukan() {
-    return tempatDitemukan;
-  }
+    public User getPenemu() {
+        return penemu;
+    }
 
-  public void setTempatDitemukan(String tempatDitemukan) {
-    this.tempatDitemukan = tempatDitemukan;
-  }
+    public void setPenemu(User penemu) {
+        this.penemu = penemu;
+    }
 
-  public Date getTanggalDitemukan() {
-    return tanggalDitemukan;
-  }
+    public String getTempatDitemukan() {
+        return tempatDitemukan;
+    }
 
-  public void setTanggalDitemukan(Date tanggalDitemukan) {
-    this.tanggalDitemukan = tanggalDitemukan;
-  }
+    public void setTempatDitemukan(String tempatDitemukan) {
+        this.tempatDitemukan = tempatDitemukan;
+    }
 
-  public String getTempatHilang() {
-    return tempatHilang;
-  }
+    public Date getTanggalDitemukan() {
+        return tanggalDitemukan;
+    }
 
-  public void setTempatHilang(String tempatHilang) {
-    this.tempatHilang = tempatHilang;
-  }
+    public void setTanggalDitemukan(Date tanggalDitemukan) {
+        this.tanggalDitemukan = tanggalDitemukan;
+    }
 
-  public Date getTanggalHilang() {
-    return tanggalHilang;
-  }
+    public String getTempatHilang() {
+        return tempatHilang;
+    }
 
-  public void setTanggalHilang(Date tanggalHilang) {
-    this.tanggalHilang = tanggalHilang;
-  }
+    public void setTempatHilang(String tempatHilang) {
+        this.tempatHilang = tempatHilang;
+    }
 
-  public long getIdPelaporan() {
-    return id;
-  }
+    public Date getTanggalHilang() {
+        return tanggalHilang;
+    }
 
-  public void setId(long id) {
-    this.id = id;
-  }
+    public void setTanggalHilang(Date tanggalHilang) {
+        this.tanggalHilang = tanggalHilang;
+    }
 
-  public Barang getBarang() {
-    return barang;
-  }
+    public long getIdPelaporan() {
+        return id;
+    }
 
-  public void setBarang(Barang barang) {
-    this.barang = barang;
-  }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-  public String getKeterangan() {
-    return keterangan;
-  }
+    public Barang getBarang() {
+        return barang;
+    }
 
-  public void setKeterangan(String keterangan) {
-    this.keterangan = keterangan;
-  }
+    public void setBarang(Barang barang) {
+        this.barang = barang;
+    }
 
+    public String getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
+    }
 
 }
