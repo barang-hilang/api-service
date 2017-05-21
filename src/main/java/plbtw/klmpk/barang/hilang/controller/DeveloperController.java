@@ -75,7 +75,7 @@ public class DeveloperController {
         List<Developer> allDevelopers = (List<Developer>) developerService.getAllDevelopers();
         for (int i = 0; i < allDevelopers.size(); i++) {
             Link selfLink = linkTo(
-                    methodOn(DeveloperController.class).getDeveloper(allDevelopers.get(i).getIdDeveloper()))
+                    methodOn(DeveloperController.class).getDeveloper(allDevelopers.get(i).getIdDeveloper(),allDevelopers.get(i).getToken()))
                     .withSelfRel();
             allDevelopers.get(i).add(selfLink);
             Link linkRole
@@ -92,21 +92,24 @@ public class DeveloperController {
         return result;
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    CustomResponseMessage getDeveloper(@PathVariable("id") long id) {
+    CustomResponseMessage getDeveloper(@PathVariable("id") Long id,@RequestHeader String apiKey) {
         Developer developer = developerService.getDeveloper(id);
         // Untuk HATEOAS
         Link selfLink = linkTo(DeveloperController.class).withSelfRel();
         developer.getRole().add(
                 linkTo(methodOn(RoleController.class).find(developer.getRole().getIdRole())).withSelfRel());
         developer.add(selfLink);
+        long totalHit = logService.countByApiKey(apiKey);
         CustomResponseMessage result = new CustomResponseMessage();
         result.add(linkTo(DeveloperController.class).withSelfRel());
         result.setHttpStatus(HttpStatus.OK);
         result.setMessage("Success");
-        List<Developer> tempCollectionDev = new ArrayList<>();
+        List<Object> tempCollectionDev = new ArrayList<>();
         tempCollectionDev.add(developer);
+        tempCollectionDev.add(totalHit);
         result.setResult(tempCollectionDev);
         return result;
     }

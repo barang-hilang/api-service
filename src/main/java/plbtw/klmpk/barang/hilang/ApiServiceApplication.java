@@ -31,11 +31,11 @@ public class ApiServiceApplication {
       roleRepository.save(new Role("SuperDeveloper"));
 
       developerRepository.save(new Developer(roleRepository.findOne(2l), "tes1", "wakowakowakowa",
-          "tesCoy", "wehehehe"));
+          "apn@gmail.com", "1234"));
       developerRepository.save(new Developer(roleRepository.findOne(2l), "tes2", "wakowakowakowa2",
-          "tesCoy", "wehehehe"));
+          "aldi@gmail.com", "1234"));
       developerRepository.save(new Developer(roleRepository.findOne(2l), "tes3", "wakowakowakowa3",
-          "tesCoy", "wehehehe"));
+          "chyrsant@gmail.com", "1234"));
 
       userRepository.save(new User(developerRepository.findOne(1l),"aldi@gmail.com","aldi","1234","alamat","089660553886","wakowakowakowa"));
       

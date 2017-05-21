@@ -4,7 +4,7 @@
  */
 package plbtw.klmpk.barang.hilang.entity;
 
-import java.sql.Date;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -5,7 +5,7 @@
  */
 package plbtw.klmpk.barang.hilang.entity.form.request;
 
-import java.sql.Date;
+import java.util.Date;
 import plbtw.klmpk.barang.hilang.entity.Developer;
 
 /**
@@ -13,26 +13,27 @@ import plbtw.klmpk.barang.hilang.entity.Developer;
  * @author CMDDJ
  */
 public class LogRequest {
-    private long idLog;
-    private long idDev;
+    private Long idLog;
     private Date time_request;
     private String status;
+    private String apiKey;
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
     
-      public long getIdLog() {
+      public Long getIdLog() {
     return idLog;
   }
 
-  public void setId(long id) {
-    this.idLog = idLog;
+  public void setId(Long id) {
+    this.idLog = id;
   }
   
-   public long getIdDev() {
-    return idDev;
-  }
-
-  public void setDev(long idDev) {
-    this.idDev = idDev;
-  }
   
    public Date getTime_request() {
     return time_request;
