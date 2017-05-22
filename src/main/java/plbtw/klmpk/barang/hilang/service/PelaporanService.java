@@ -16,9 +16,9 @@ import plbtw.klmpk.barang.hilang.entity.Pelaporan;
 public interface PelaporanService {
   Collection<Pelaporan> getAllPelaporan();
 
-  Pelaporan getPelaporan(long id);
+  Pelaporan getPelaporan(Long id);
   
-  Pelaporan getPelaporanByPelapor(Long id);
+  Pelaporan getPelaporanByPelapor(Long idUser);
 
   void addPelaporan(Pelaporan pelaporan);
 

@@ -11,33 +11,33 @@ import java.sql.Date;
  * @author ALz
  */
 public class PelaporanRequest {
-  private long idPelaporan;
-  private long idBarang;
-  private long idPelapor;
+  private Long idPelaporan;
+  private Long idBarang;
+  private Long idPelapor;
   private String email, keterangan, tempatHilang, tempatDitemukan;
   private Date tanggalHilang, tanggalDitemukan;
 
-  public long getIdPelaporan() {
+  public Long getIdPelaporan() {
     return idPelaporan;
   }
 
-  public void setIdPelaporan(long idPelaporan) {
+  public void setIdPelaporan(Long idPelaporan) {
     this.idPelaporan = idPelaporan;
   }
 
-  public long getIdBarang() {
+  public Long getIdBarang() {
     return idBarang;
   }
 
-  public void setIdBarang(long idBarang) {
+  public void setIdBarang(Long idBarang) {
     this.idBarang = idBarang;
   }
 
-  public long getIdPelapor() {
+  public Long getIdPelapor() {
     return idPelapor;
   }
 
-  public void setIdPelapor(long idPelapor) {
+  public void setIdPelapor(Long idPelapor) {
     this.idPelapor = idPelapor;
   }
 

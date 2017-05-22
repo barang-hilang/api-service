@@ -8,6 +8,7 @@ import java.io.Serializable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import plbtw.klmpk.barang.hilang.entity.Pelaporan;
+import plbtw.klmpk.barang.hilang.entity.User;
 
 /**
  *
@@ -15,5 +16,5 @@ import plbtw.klmpk.barang.hilang.entity.Pelaporan;
  */
 @Repository
 public interface PelaporanRepository extends JpaRepository<Pelaporan, Long> {
-    Pelaporan findByPelapor(Long idPenemu);        
+    Pelaporan findByPelapor(User pelapor);        
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import plbtw.klmpk.barang.hilang.entity.Pelaporan;
 import plbtw.klmpk.barang.hilang.repository.PelaporanRepository;
+import plbtw.klmpk.barang.hilang.repository.UserRepository;
 import plbtw.klmpk.barang.hilang.service.PelaporanService;
 
 /**
@@ -21,13 +22,16 @@ public class PelaporanServiceImpl implements PelaporanService {
     @Autowired
     private PelaporanRepository pelaporanRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+    
     @Override
     public Collection<Pelaporan> getAllPelaporan() {
         return pelaporanRepository.findAll();
     }
 
     @Override
-    public Pelaporan getPelaporan(long id) {
+    public Pelaporan getPelaporan(Long id) {
         return pelaporanRepository.findOne(id);
     }
 
@@ -47,8 +51,8 @@ public class PelaporanServiceImpl implements PelaporanService {
     }
 
     @Override
-    public Pelaporan getPelaporanByPelapor(Long id) {
-        return pelaporanRepository.findByPelapor(id);
+    public Pelaporan getPelaporanByPelapor(Long idUser) {
+        return pelaporanRepository.findByPelapor(userRepository.findOne(idUser));
     }
 
 }

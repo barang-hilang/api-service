@@ -89,7 +89,7 @@ public class PelaporanController {
     }
 
     @RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")
-    public CustomResponseMessage getPelaporan(@PathVariable("id") long id, @RequestHeader String apiKey) {
+    public CustomResponseMessage getPelaporan(@PathVariable("id") Long id, @RequestHeader String apiKey) {
         if (!authApiKey(apiKey)) {
             return new CustomResponseMessage(HttpStatus.FORBIDDEN,
                     "Please use your api key to authentication");
@@ -125,7 +125,7 @@ public class PelaporanController {
     }
 
     @RequestMapping(value = "/pelapor/{id}", method = RequestMethod.GET, produces = "application/json")
-    public CustomResponseMessage getPelaporanByPelapor(@PathVariable("id") long id, @RequestHeader String apiKey) {
+    public CustomResponseMessage getPelaporanByPelapor(@PathVariable("id") Long id, @RequestHeader String apiKey) {
         if (!authApiKey(apiKey)) {
             return new CustomResponseMessage(HttpStatus.FORBIDDEN,
                     "Please use your api key to authentication");
