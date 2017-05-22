@@ -183,6 +183,8 @@ public class PelaporanController {
 
             Pelaporan pelaporan = new Pelaporan();
             pelaporan.setBarang(barangService.getBarang(pelaporanRequest.getIdBarang()));
+            pelaporan.setPelapor(userService.getUser(pelaporanRequest.getIdPelapor()));
+            pelaporan.setKeterangan(pelaporanRequest.getKeterangan());
             pelaporan.setTanggalHilang(pelaporanRequest.getTanggalHilang());
             pelaporan.setTempatHilang(pelaporanRequest.getTempatHilang());
             pelaporanService.addPelaporan(pelaporan);
