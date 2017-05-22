@@ -17,6 +17,8 @@ public interface PelaporanService {
   Collection<Pelaporan> getAllPelaporan();
 
   Pelaporan getPelaporan(long id);
+  
+  Pelaporan getPelaporanByPelapor(Long id);
 
   void addPelaporan(Pelaporan pelaporan);
 

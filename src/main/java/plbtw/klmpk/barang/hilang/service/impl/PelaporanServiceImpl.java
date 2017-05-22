@@ -18,32 +18,37 @@ import plbtw.klmpk.barang.hilang.service.PelaporanService;
 @Service
 public class PelaporanServiceImpl implements PelaporanService {
 
-  @Autowired
-  private PelaporanRepository pelaporanRepository;
+    @Autowired
+    private PelaporanRepository pelaporanRepository;
 
-  @Override
-  public Collection<Pelaporan> getAllPelaporan() {
-    return pelaporanRepository.findAll();
-  }
+    @Override
+    public Collection<Pelaporan> getAllPelaporan() {
+        return pelaporanRepository.findAll();
+    }
 
-  @Override
-  public Pelaporan getPelaporan(long id) {
-    return pelaporanRepository.findOne(id);
-  }
+    @Override
+    public Pelaporan getPelaporan(long id) {
+        return pelaporanRepository.findOne(id);
+    }
 
-  @Override
-  public void addPelaporan(Pelaporan pelaporan) {
-    pelaporanRepository.save(pelaporan);
-  }
+    @Override
+    public void addPelaporan(Pelaporan pelaporan) {
+        pelaporanRepository.save(pelaporan);
+    }
 
-  @Override
-  public void updatePelaporan(Pelaporan pelaporanBaru) {
-    pelaporanRepository.save(pelaporanBaru);
-  }
+    @Override
+    public void updatePelaporan(Pelaporan pelaporanBaru) {
+        pelaporanRepository.save(pelaporanBaru);
+    }
 
-  @Override
-  public void deletePelaporan(long id) {
-    pelaporanRepository.delete(id);
-  }
+    @Override
+    public void deletePelaporan(long id) {
+        pelaporanRepository.delete(id);
+    }
+
+    @Override
+    public Pelaporan getPelaporanByPelapor(Long id) {
+        return pelaporanRepository.findByPelapor(id);
+    }
 
 }

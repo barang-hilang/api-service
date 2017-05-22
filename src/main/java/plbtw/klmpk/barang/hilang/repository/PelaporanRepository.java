@@ -15,5 +15,5 @@ import plbtw.klmpk.barang.hilang.entity.Pelaporan;
  */
 @Repository
 public interface PelaporanRepository extends JpaRepository<Pelaporan, Long> {
-
+    Pelaporan findByPelapor(Long idPenemu);        
 }

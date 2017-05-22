@@ -124,6 +124,42 @@ public class PelaporanController {
         return result;
     }
 
+    @RequestMapping(value = "/pelapor/{id}", method = RequestMethod.GET, produces = "application/json")
+    public CustomResponseMessage getPelaporanByPelapor(@PathVariable("id") long id, @RequestHeader String apiKey) {
+        if (!authApiKey(apiKey)) {
+            return new CustomResponseMessage(HttpStatus.FORBIDDEN,
+                    "Please use your api key to authentication");
+        }
+
+        if (checkRateLimit(RATE_LIMIT, apiKey)) {
+            return new CustomResponseMessage(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED,
+                    "Please wait a while, you have reached your rate limit");
+        }
+
+        LogRequest temp = DependencyFactory.createLog(apiKey, "Get");
+
+        Log log = new Log();
+        log.setApiKey(temp.getApiKey());
+        log.setStatus(temp.getStatus());
+        log.setTimeRequest(temp.getTime_request());
+        logService.addLog(log);
+
+        Pelaporan pelaporan = pelaporanService.getPelaporanByPelapor(id);
+        Link selfLink = linkTo(UserController.class).withSelfRel();
+        pelaporan.add(selfLink);
+
+        List<Pelaporan> laporan = new ArrayList<>();
+        laporan.add(pelaporan);
+
+        CustomResponseMessage result = new CustomResponseMessage();
+        result.add(linkTo(PelaporanController.class).withSelfRel());
+        result.setHttpStatus(HttpStatus.ACCEPTED);
+        result.setMessage("Success");
+        result.setResult(laporan);
+
+        return result;
+    }
+    
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public CustomResponseMessage addPelaporan(@RequestBody PelaporanRequest pelaporanRequest, @RequestHeader String apiKey) {
         try {
